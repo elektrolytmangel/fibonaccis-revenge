@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Participant } from "../domain/poker";
+import { I18nProvider } from "../i18n/i18n";
 import { useLocalRoom } from "../room/useLocalRoom";
 import { Landing } from "./Landing";
 import { Room } from "./Room";
-import { applyTheme, loadTheme, nextTheme } from "./theme";
 
 const ROOM_HASH = /^#\/room\/([\w-]+)$/;
 
@@ -20,20 +20,6 @@ function JoinedRoom({ me }: { me: Participant }) {
   return <Room room={room} link={window.location.href} />;
 }
 
-function ThemeToggle() {
-  const [theme, setTheme] = useState(loadTheme);
-  useEffect(() => applyTheme(theme), [theme]);
-  return (
-    <button
-      type="button"
-      className="btn btn--quiet theme-toggle"
-      onClick={() => setTheme(nextTheme(theme))}
-    >
-      Theme: {theme}
-    </button>
-  );
-}
-
 export function App() {
   const [me, setMe] = useState<Participant | null>(null);
 
@@ -43,9 +29,8 @@ export function App() {
   };
 
   return (
-    <>
+    <I18nProvider>
       {me ? <JoinedRoom me={me} /> : <Landing roomId={roomIdFromHash()} onStart={start} />}
-      <ThemeToggle />
-    </>
+    </I18nProvider>
   );
 }

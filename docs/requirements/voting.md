@@ -20,12 +20,14 @@ A participant must be able to choose one card from the Fibonacci deck
 
 Any participant must be able to reveal the round; afterwards all votes are visible to everyone.
 
-### REQ-VOTE-004: Result summary
+### REQ-VOTE-004: Estimate = next Fibonacci number above the average
 
-- **Priority:** should | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** design §Voting
+- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** user (2026-11-04)
 
-After reveal the app should show the distribution, the average of numeric
-votes and whether there is consensus.
+After the reveal the app must show exactly one result: the smallest Fibonacci number (0, 1, 2, 3, 5, 8, 13, 21,
+34, 55, ...) that is at least the average of the numeric votes ("?" is ignored; no numeric votes shows "–").
+There is no distribution, no average figure and no consensus text. The result row is always present and
+empty until the reveal and after a reset.
 
 ### REQ-VOTE-005: Reset
 

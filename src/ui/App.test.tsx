@@ -1,5 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { makeT } from "../i18n/i18n";
 import { App } from "./App";
 
 async function startRoom(name = "Marc") {
@@ -41,13 +42,47 @@ describe("app", () => {
   });
 
   // req: REQ-UI-002
-  it("offers one primary action per state", async () => {
+  it("makes one action primary per state", async () => {
     const user = await startRoom();
     await user.click(screen.getByRole("button", { name: "5" }));
-    expect(screen.getByRole("button", { name: "Reveal votes" })).toBeEnabled();
+    const reveal = screen.getByRole("button", { name: "Reveal votes" });
+    const reset = screen.getByRole("button", { name: "Reset" });
+    expect(reveal).toHaveClass("btn--primary");
+    expect(reset).toHaveClass("btn--secondary");
+    await user.click(reveal);
+    expect(reveal).toBeDisabled();
+    expect(reset).toHaveClass("btn--primary");
+  });
+
+  // req: REQ-UI-009
+  it("lays out title, deck, actions, estimate and participants in that order", async () => {
+    await startRoom();
+    const order = [
+      screen.getByRole("heading", { level: 1 }),
+      screen.getByRole("group", { name: "Choose your card" }),
+      screen.getByRole("button", { name: "Reveal votes" }),
+      screen.getByRole("region", { name: "Estimate" }),
+      screen.getByRole("list", { name: "Participants" }),
+    ];
+    for (let i = 1; i < order.length; i++) {
+      expect(
+        order[i - 1].compareDocumentPosition(order[i]) & Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    }
+  });
+
+  // req: REQ-VOTE-004
+  it("keeps the estimate row, empty until reveal, then the next Fibonacci number", async () => {
+    const user = await startRoom();
+    const row = screen.getByRole("region", { name: "Estimate" });
+    expect(row).toHaveTextContent(/^Estimate$/);
+    await user.click(screen.getByRole("button", { name: "42" }));
+    expect(row).toHaveTextContent(/^Estimate$/);
     await user.click(screen.getByRole("button", { name: "Reveal votes" }));
-    expect(screen.queryByRole("button", { name: "Reveal votes" })).toBeNull();
-    expect(screen.getByRole("button", { name: "Reset" })).toBeInTheDocument();
+    expect(row).toHaveTextContent(/^Estimate55$/);
+    await user.click(screen.getByRole("button", { name: "Reset" }));
+    expect(screen.getByRole("region", { name: "Estimate" })).toHaveTextContent(/^Estimate$/);
+    expect(screen.queryByText(/talk it through|average|votes differ/i)).toBeNull();
   });
 
   // req: REQ-VOTE-001
@@ -78,5 +113,29 @@ describe("app", () => {
   it("uses friendly waiting copy", async () => {
     await startRoom();
     expect(screen.getByRole("status")).toHaveTextContent("Pick a card to get started.");
+  });
+
+  // req: REQ-LANG-001
+  it("switches the language and remembers it", async () => {
+    const user = userEvent.setup();
+    localStorage.removeItem("fr.lang");
+    const { unmount } = render(<App />);
+    await user.selectOptions(screen.getByRole("combobox", { name: "Language" }), "de");
+    expect(screen.getByLabelText("Dein Name")).toBeInTheDocument();
+    expect(document.documentElement.lang).toBe("de");
+    unmount();
+    render(<App />);
+    expect(screen.getByLabelText("Dein Name")).toBeInTheDocument();
+    localStorage.removeItem("fr.lang");
+  });
+
+  // req: REQ-LANG-002
+  it("uses the plural rules of the language", () => {
+    expect(makeT("en")("room.waiting", { count: 1 })).toBe("Waiting for 1 more vote…");
+    expect(makeT("en")("room.waiting", { count: 2 })).toBe("Waiting for 2 more votes…");
+    expect(makeT("de")("room.waiting", { count: 1 })).toBe("Warte auf noch 1 Stimme…");
+    expect(makeT("pl")("room.waiting", { count: 1 })).toContain("1 głos…");
+    expect(makeT("pl")("room.waiting", { count: 3 })).toContain("3 głosy…");
+    expect(makeT("pl")("room.waiting", { count: 5 })).toContain("5 głosów…");
   });
 });

@@ -100,7 +100,14 @@ body {
   font-size: var(--text-lg);
   min-height: 56px;
 }
+.btn--secondary {
+  background: var(--card);
+  color: var(--on-card);
+  min-height: 56px;
+  font-size: var(--text-lg);
+}
 .btn--quiet {
+  white-space: nowrap;
   background: transparent;
   color: var(--muted);
   font-size: var(--text-sm);
@@ -121,8 +128,15 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  /* Takes the remaining height and scrolls when the list is long. */
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--outline) transparent;
 }
 .person {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -184,17 +198,21 @@ body {
 }
 
 .deck {
-  /* Extra space between the participant list and the cards. */
   border: 0;
-  margin: var(--space-4) 0 0;
+  margin: 0;
   padding: 0;
   min-width: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
-  gap: var(--space-3);
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-2);
+}
+@media (min-width: 600px) {
+  .deck {
+    grid-template-columns: repeat(10, 1fr);
+  }
 }
 .card {
-  min-height: 96px;
+  min-height: 72px;
   border: 0;
   border-radius: var(--radius-lg);
   background: var(--card);
@@ -208,7 +226,7 @@ body {
   gap: var(--space-1);
 }
 .card__value {
-  font-size: var(--text-xl);
+  font-size: 1.75rem;
   font-weight: 800;
   line-height: 1;
 }
@@ -217,8 +235,10 @@ body {
   color: var(--on-accent);
 }
 .card:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+  cursor: default;
+}
+.card:disabled:not(.card--selected) {
+  opacity: 0.55;
 }
 
 .actions {
@@ -228,59 +248,71 @@ body {
   gap: var(--space-2);
   text-align: center;
 }
-.hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: var(--text-sm);
-}
-
-.average {
-  margin: 0;
-  color: var(--muted);
-}
-.average strong {
-  color: var(--text);
-  font-size: var(--text-lg);
-}
-.bars {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.actions__buttons {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-.bar {
-  display: grid;
-  grid-template-columns: 2.5rem 1fr 5.5rem;
-  align-items: center;
   gap: var(--space-3);
 }
-.bar__label {
-  font-weight: 800;
-  text-align: center;
+.actions__buttons .btn {
+  flex: 1;
+  font-size: var(--text-md);
 }
-.bar__track {
-  height: 16px;
-  background: var(--card);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-}
-.bar__fill {
-  display: block;
-  height: 100%;
-  background: var(--accent);
-}
-.bar__count {
+.hint {
+  margin: 0;
+  min-height: 1.5em;
   color: var(--muted);
   font-size: var(--text-sm);
 }
 
-.theme-toggle {
-  position: fixed;
-  right: var(--space-2);
-  bottom: var(--space-2);
+.page--room {
+  height: 100dvh;
+  overflow: hidden;
+  padding: var(--space-3);
+  gap: var(--space-3);
 }
-.dev {
-  align-self: center;
+
+/* The one result row: always present, empty until the reveal. */
+.estimate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 72px;
+  padding: 0 var(--space-4);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+.estimate__label {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 800;
+}
+.estimate__value {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.settings {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+.settings select {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  border: 2px solid var(--outline);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-sm);
 }

@@ -1,4 +1,5 @@
 import { type Card, DECK } from "../domain/poker";
+import { useI18n } from "../i18n/i18n";
 
 interface Props {
   selected: Card | undefined;
@@ -7,9 +8,10 @@ interface Props {
 }
 
 export function Deck({ selected, disabled, onPick }: Props) {
+  const { t } = useI18n();
   return (
     <fieldset className="deck">
-      <legend className="sr-only">Choose your card</legend>
+      <legend className="sr-only">{t("room.deck")}</legend>
       {DECK.map((card) => {
         const isSelected = card === selected;
         return (
@@ -18,7 +20,7 @@ export function Deck({ selected, disabled, onPick }: Props) {
             type="button"
             className={isSelected ? "card card--selected" : "card"}
             aria-pressed={isSelected}
-            aria-label={card === "?" ? "Unsure" : card}
+            aria-label={card === "?" ? t("room.unsure") : card}
             disabled={disabled}
             onClick={() => onPick(card)}
           >

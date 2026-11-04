@@ -9,6 +9,7 @@ and traced to tests automatically ([ADR 0002](../adr/0002-requirements-as-code.m
 | ---------------------------------- | ------ | --------------------------------------------- |
 | [room.md](room.md)                 | `ROOM` | Rooms and participants                        |
 | [voting.md](voting.md)             | `VOTE` | Cards, hidden votes, reveal, reset            |
+| [i18n.md](i18n.md) | `LANG` | Languages, plurals |
 | [ui.md](ui.md)                     | `UI`   | Visual style, accessibility, responsiveness   |
 | [sync.md](sync.md)                 | `SYNC` | Use of kith: live sync, rejoin, privacy       |
 | [platform.md](platform.md)         | `PLAT` | Stack, packaging, browsers                    |
