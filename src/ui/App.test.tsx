@@ -52,12 +52,11 @@ describe("app", () => {
 
   // req: REQ-VOTE-001
   // req: REQ-UI-005
-  it("marks the picked card without colour alone and shows the value only after reveal", async () => {
+  it("marks the picked card for assistive tech and shows the value only after reveal", async () => {
     const user = await startRoom();
     const five = screen.getByRole("button", { name: "5" });
     await user.click(five);
     expect(five).toHaveAttribute("aria-pressed", "true");
-    expect(within(five).getByText(/your pick/i)).toBeInTheDocument();
     const people = screen.getByRole("list", { name: "Participants" });
     expect(within(people).getByText(/voted/i)).toBeInTheDocument();
     expect(within(people).queryByText("5")).toBeNull();

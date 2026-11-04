@@ -212,10 +212,6 @@ body {
   font-weight: 800;
   line-height: 1;
 }
-.card__mark {
-  font-size: 0.75rem;
-  font-weight: 800;
-}
 .card--selected {
   background: var(--accent);
   color: var(--on-accent);

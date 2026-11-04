@@ -23,7 +23,6 @@ export function Deck({ selected, disabled, onPick }: Props) {
             onClick={() => onPick(card)}
           >
             <span className="card__value">{card}</span>
-            {isSelected && <span className="card__mark">✓ Your pick</span>}
           </button>
         );
       })}
