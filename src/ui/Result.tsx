@@ -1,4 +1,4 @@
-import { summarize, type RoomState } from "../domain/poker";
+import { type RoomState, summarize } from "../domain/poker";
 
 export function Result({ state }: { state: RoomState }) {
   const s = summarize(state);

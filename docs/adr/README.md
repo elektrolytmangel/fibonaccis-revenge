@@ -7,6 +7,7 @@ that supersedes the old one.
 | ADR                                  | Decision                                                             |
 | ------------------------------------ | -------------------------------------------------------------------- |
 | [0001](0001-react-vite-kith-npm.md)  | TypeScript + Vite + React, kith as npm tarball from a GitHub Release |
+| [0004](0004-biome-instead-of-eslint.md) | Biome instead of ESLint + Prettier (enables TypeScript 7) |
 | [0003](0003-flat-headspace-style.md) | Flat, Headspace-oriented visual style, no micro-movements            |
 | [0002](0002-requirements-as-code.md) | Requirements as code with automated traceability                     |
 

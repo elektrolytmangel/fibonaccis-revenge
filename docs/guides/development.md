@@ -11,7 +11,8 @@
 ## Daily loop
 
 ```sh
-npm run lint
+npm run lint                        # Biome check (lint + format)
+npm run format                      # Biome auto-fix
 npm run typecheck
 npm test
 python3 scripts/reqs.py --write     # after touching requirements or `req:` tags

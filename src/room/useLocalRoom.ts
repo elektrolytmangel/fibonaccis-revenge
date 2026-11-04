@@ -1,11 +1,11 @@
 import { useCallback, useReducer } from "react";
 import {
+  type Card,
   DECK,
   initialRoom,
-  roomReducer,
-  type Card,
   type Participant,
   type RoomState,
+  roomReducer,
 } from "../domain/poker";
 
 /**
