@@ -7,6 +7,7 @@ that supersedes the old one.
 | ADR                                  | Decision                                                             |
 | ------------------------------------ | -------------------------------------------------------------------- |
 | [0001](0001-react-vite-kith-npm.md)  | TypeScript + Vite + React, kith as npm tarball from a GitHub Release |
+| [0009](0009-sky-surge-replaces-cyan.md) | Sky Surge `#6BB8D2` replaces Pacific cyan |
 | [0008](0008-dark-white-cards-navy-primary.md) | Dark theme: white inactive cards, navy primary (amends 0007) |
 | [0007](0007-navy-cyan-plum-palette.md) | User-supplied palette: Oxford navy, Pacific cyan, plum, white, onyx; supersedes 0006 |
 | [0006](0006-sky-and-night-blue-themes.md) | Sky/night-blue themes (superseded by 0007) |

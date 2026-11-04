@@ -7,9 +7,10 @@
 The app must have its own recognisable look that feels friendly and is not overloaded:
 few colours, generous whitespace, rounded shapes, no decoration without function. The
 look is flat (solid fills; no shadows, gradients or textures) and oriented on Headspace: soft
-backgrounds, a fixed five-colour palette (Oxford navy primary, mostly white and onyx, cyan and plum
+backgrounds, a fixed five-colour palette (Oxford navy primary, mostly white and onyx, sky surge and plum
 sparingly), friendly rounded type. See [ADR 0003](../adr/0003-flat-headspace-style.md) and
-[ADR 0007](../adr/0007-navy-cyan-plum-palette.md).
+[ADR 0007](../adr/0007-navy-cyan-plum-palette.md) and
+[ADR 0009](../adr/0009-sky-surge-replaces-cyan.md).
 
 ### REQ-UI-002: One obvious next action
 

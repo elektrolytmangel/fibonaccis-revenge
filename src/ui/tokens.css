@@ -2,9 +2,9 @@
 :root {
   --font: "Nunito Variable", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
 
-  /* Palette (ADR 0007). Navy is the brand colour; cyan, plum and onyx are used sparingly. */
+  /* Palette (ADR 0007/0009). Navy is the brand colour; sky, plum and onyx are used sparingly. */
   --navy: #12355b;
-  --cyan: #348aa7;
+  --sky: #6bb8d2; /* Sky Surge */
   --plum: #d68fd6;
   --white: #ffffff;
   --onyx: #0a0a0a;
@@ -24,7 +24,7 @@
   --focus: var(--navy);
   --avatar-a: var(--navy);
   --on-avatar-a: var(--white);
-  --avatar-b: var(--cyan);
+  --avatar-b: var(--sky);
   --on-avatar-b: var(--onyx);
   --avatar-c: var(--plum);
   --on-avatar-c: var(--onyx);
