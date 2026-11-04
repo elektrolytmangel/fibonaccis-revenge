@@ -39,9 +39,9 @@ Implemented (system/light/dark toggle); needs a manual check of both themes.
 - **Priority:** must | **Phase:** 1 | **Status:** partial | **Verify:** test | **Source:** design §Style
 
 Text contrast must meet WCAG AA. All actions, including choosing a card, must work with the keyboard,
-with a visible focus ring. Card state must not rely on colour alone. Motion must respect `prefers-reduced-motion`.
+with a visible focus ring. The selected card must differ from unselected cards by a strong lightness difference (at least 3:1), not by hue alone, and must expose its state to assistive technology (`aria-pressed`). Motion must respect `prefers-reduced-motion`.
 
-Done: buttons with `aria-pressed`, "✓ Your pick" text, focus ring, no motion. Open: automated contrast check.
+Done: buttons with `aria-pressed`, selected card 10.0:1 (light) / 5.6:1 (dark) against unselected, focus ring, no motion. Open: automated contrast check.
 
 ### REQ-UI-006: Phone first
 
