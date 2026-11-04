@@ -1,10 +1,10 @@
 import {
   initialRoom,
+  type RoomAction,
+  type RoomState,
   roomReducer,
   summarize,
   votedCount,
-  type RoomAction,
-  type RoomState,
 } from "./poker";
 
 const run = (actions: RoomAction[], from: RoomState = initialRoom) =>

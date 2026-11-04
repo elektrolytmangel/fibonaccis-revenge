@@ -29,7 +29,6 @@ export function Landing({ roomId, onStart }: Props) {
             onChange={(e) => setName(e.target.value)}
             maxLength={24}
             autoComplete="nickname"
-            autoFocus
           />
         </label>
         <button type="submit" className="btn btn--primary" disabled={!valid}>

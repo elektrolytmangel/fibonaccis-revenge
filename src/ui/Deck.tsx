@@ -1,4 +1,4 @@
-import { DECK, type Card } from "../domain/poker";
+import { type Card, DECK } from "../domain/poker";
 
 interface Props {
   selected: Card | undefined;
@@ -8,7 +8,8 @@ interface Props {
 
 export function Deck({ selected, disabled, onPick }: Props) {
   return (
-    <div className="deck" role="group" aria-label="Choose your card">
+    <fieldset className="deck">
+      <legend className="sr-only">Choose your card</legend>
       {DECK.map((card) => {
         const isSelected = card === selected;
         return (
@@ -26,6 +27,6 @@ export function Deck({ selected, disabled, onPick }: Props) {
           </button>
         );
       })}
-    </div>
+    </fieldset>
   );
 }
