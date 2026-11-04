@@ -18,7 +18,7 @@ export function Deck({ selected, disabled, onPick }: Props) {
             type="button"
             className={isSelected ? "card card--selected" : "card"}
             aria-pressed={isSelected}
-            aria-label={card === "☕" ? "Coffee break" : card === "?" ? "Unsure" : card}
+            aria-label={card === "?" ? "Unsure" : card}
             disabled={disabled}
             onClick={() => onPick(card)}
           >

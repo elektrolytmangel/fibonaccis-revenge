@@ -1,4 +1,4 @@
-export const DECK = ["0", "1", "2", "3", "5", "8", "13", "21", "?", "☕"] as const;
+export const DECK = ["0", "1", "2", "3", "5", "8", "13", "21", "42", "?"] as const;
 export type Card = (typeof DECK)[number];
 
 export interface Participant {
@@ -10,7 +10,6 @@ export interface RoomState {
   participants: Participant[];
   votes: Record<string, Card>;
   revealed: boolean;
-  round: number;
 }
 
 export type RoomAction =
@@ -20,7 +19,7 @@ export type RoomAction =
   | { type: "reveal" }
   | { type: "reset" };
 
-export const initialRoom: RoomState = { participants: [], votes: {}, revealed: false, round: 1 };
+export const initialRoom: RoomState = { participants: [], votes: {}, revealed: false };
 
 export function roomReducer(state: RoomState, action: RoomAction): RoomState {
   switch (action.type) {
@@ -41,7 +40,7 @@ export function roomReducer(state: RoomState, action: RoomAction): RoomState {
     case "reveal":
       return Object.keys(state.votes).length === 0 ? state : { ...state, revealed: true };
     case "reset":
-      return { ...state, votes: {}, revealed: false, round: state.round + 1 };
+      return { ...state, votes: {}, revealed: false };
   }
 }
 

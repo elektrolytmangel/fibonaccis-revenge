@@ -29,4 +29,4 @@
 | [REQ-VOTE-002](voting.md#req-vote-002-fibonacci-deck) | Fibonacci deck | must | 1 | implemented | test | `src/domain/poker.test.ts` | — |
 | [REQ-VOTE-003](voting.md#req-vote-003-reveal) | Reveal | must | 1 | implemented | test | `src/domain/poker.test.ts` | — |
 | [REQ-VOTE-004](voting.md#req-vote-004-result-summary) | Result summary | should | 1 | implemented | test | `src/domain/poker.test.ts` | — |
-| [REQ-VOTE-005](voting.md#req-vote-005-reset--next-round) | Reset / next round | must | 1 | implemented | test | `src/domain/poker.test.ts`<br>`src/ui/App.test.tsx` | — |
+| [REQ-VOTE-005](voting.md#req-vote-005-reset) | Reset | must | 1 | implemented | test | `src/domain/poker.test.ts`<br>`src/ui/App.test.tsx` | — |

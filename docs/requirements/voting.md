@@ -12,7 +12,7 @@ card value should not be derivable from what is shown (only "voted" status).
 - **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** design §Voting
 
 A participant must be able to choose one card from the Fibonacci deck
-(0, 1, 2, 3, 5, 8, 13, 21, ?, coffee) and change it until reveal.
+(0, 1, 2, 3, 5, 8, 13, 21, 42, ?) and change it until reveal.
 
 ### REQ-VOTE-003: Reveal
 
@@ -27,8 +27,8 @@ Any participant must be able to reveal the round; afterwards all votes are visib
 After reveal the app should show the distribution, the average of numeric
 votes and whether there is consensus.
 
-### REQ-VOTE-005: Reset / next round
+### REQ-VOTE-005: Reset
 
 - **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** design §Voting
 
-Any participant must be able to start a new round, clearing all votes.
+Any participant must be able to reset the room, clearing all votes and hiding them again. There is no round counter.

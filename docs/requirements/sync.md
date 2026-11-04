@@ -22,4 +22,4 @@ Room content must be transported only via kith's encrypted changes; the relay mu
 
 - **Priority:** must | **Phase:** 2 | **Status:** accepted | **Verify:** test | **Source:** design §Sync
 
-A participant joining mid-round must see the current round state (as far as another participant is online).
+A participant joining while votes are being cast must see the current vote state (as far as another participant is online).

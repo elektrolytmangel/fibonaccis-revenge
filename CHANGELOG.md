@@ -10,3 +10,4 @@
 - Themes: user palette (Oxford navy, Pacific cyan, plum, white, onyx).
 - Dark theme: white inactive cards, navy primary.
 - Palette: Sky Surge replaces Pacific cyan.
+- Room: app name in header, no round counter (Reset only), deck with 42 instead of coffee, more space above the cards.

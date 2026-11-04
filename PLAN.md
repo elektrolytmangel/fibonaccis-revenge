@@ -82,3 +82,4 @@ UI not built yet.
 - **2026-11-04**: Themes rebuilt on the user's palette (navy/cyan/plum/white/onyx), PR `style/palette-navy-cyan-plum`. Sky/night-blue (ADR 0006) superseded.
 - **2026-11-04**: Dark theme: white inactive cards, navy primary instead of cyan (PR `style/dark-white-cards`, ADR 0008). Known: navy buttons on onyx have only 1.6:1 shape contrast; their white text is 12.5:1.
 - **2026-11-04**: Pacific cyan replaced by Sky Surge `#6BB8D2` (PR `style/sky-surge`, ADR 0009).
+- **2026-11-04**: Room header shows the app name; rounds removed (just Reset); deck is 0,1,2,3,5,8,13,21,42,? (coffee removed); more space between participants and deck (PR `feat/room-header-reset-deck`).
