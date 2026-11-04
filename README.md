@@ -25,7 +25,7 @@ scripts/             requirements checker
 
 ```sh
 python3 scripts/reqs.py        # requirements check (works today)
-npm ci && npm run dev
+pnpm install && pnpm dev
 ```
 
 ## Contributing

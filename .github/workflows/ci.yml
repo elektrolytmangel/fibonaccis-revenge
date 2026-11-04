@@ -36,15 +36,17 @@ jobs:
         id: app
         run: |
           if [ -f package.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "No package.json yet; skipping."; fi
+      - uses: pnpm/action-setup@v6
+        if: steps.app.outputs.present == 'true'
       - uses: actions/setup-node@v7
         if: steps.app.outputs.present == 'true'
         with:
           node-version: 22
-          cache: npm
+          cache: pnpm
       - if: steps.app.outputs.present == 'true'
         run: |
-          npm ci
-          npm run lint
-          npm run typecheck
-          npm test
-          npm run build
+          pnpm install --frozen-lockfile
+          pnpm lint
+          pnpm typecheck
+          pnpm test
+          pnpm build

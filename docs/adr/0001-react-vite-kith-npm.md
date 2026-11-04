@@ -11,7 +11,7 @@ Releases; its web package is `kith-wasm-X.Y.Z.tgz` (wasm-bindgen).
 
 ## Decision
 
-- App: TypeScript, Vite, React; tests with Vitest; npm as package manager.
+- App: TypeScript, Vite, React; tests with Vitest; pnpm as package manager ([ADR 0005](0005-pnpm.md)).
 - kith is a dependency on the release tarball URL of a pinned kith tag, in `package.json`.
 - The kith relay is run separately (container or binary from the kith release).
 
