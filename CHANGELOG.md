@@ -13,3 +13,4 @@
 - Room: app name in header, no round counter (Reset only), deck with 42 instead of coffee, more space above the cards.
 - Dark theme: Sky Surge inactive cards.
 - Selected card: no text mark, colour only.
+- Dark theme: inactive cards use the light theme's tint.
