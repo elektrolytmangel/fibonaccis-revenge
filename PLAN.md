@@ -51,6 +51,7 @@ UI not built yet.
 | All 24 requirements accepted as written (REQ-UI-007 reworded for the style)                                                  | User (2026-11-04)                                                | `docs/requirements/`                              |
 | Biome (lint + format) instead of ESLint/Prettier; TypeScript 7 | `typescript-eslint` caps TypeScript at <6.1 and blocked Dependabot #5. User: "do this" (2026-11-04) | [ADR 0004](docs/adr/0004-biome-instead-of-eslint.md) |
 | pnpm instead of npm | User (2026-11-04) | [ADR 0005](docs/adr/0005-pnpm.md) |
+| Dark theme: warm espresso brown (`#1E1814` bg) with the same orange accent; replaced the purple-ish dark | User disliked the first dark scheme and had no preference among espresso/navy/forest; agent picked espresso (2026-11-04) | `src/ui/tokens.css` |
 | UI first on local state, kith integrated afterwards                                                                          | User (2026-11-04): library ready in 1-2 days                     | Next steps 2-3                                    |
 | Requirements need user confirmation before implementation                                                                    | User (2026-11-04)                                                | Next steps 1                                      |
 | Process mirrors kith (PLAN.md, requirements as code, ADRs, agent merges own green PRs)                                       | User request (2026-11-04)                                        | `CLAUDE.md`                                       |
@@ -77,3 +78,4 @@ UI not built yet.
 - **2026-11-04**: Local-state UI (PR `feat/ui-local-room`). Domain + UI tests tagged with requirements. Next: user reviews the look (`pnpm dev`), then kith integration when the library is ready.
 - **2026-11-04**: Dependabot PRs #6, #4, #2 merged. ESLint/Prettier replaced by Biome so TypeScript 7 works (PR `chore/biome-typescript-7`, supersedes Dependabot #5).
 - **2026-11-04**: Package manager switched from npm to pnpm (PR `chore/pnpm`).
+- **2026-11-04**: Dark theme changed from purple-ish to espresso brown (PR `style/dark-espresso`). Alternatives if still not liked: midnight navy (`#14202E`), forest teal (`#12241F`).

@@ -35,28 +35,29 @@
   --target: 48px;
 }
 
+/* Dark theme: warm espresso (same colour family as the orange accent). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1f1a26;
-    --surface: #2b2433;
-    --card: #3b3046;
-    --text: #fbf3ea;
-    --muted: #bdb2c7;
-    --outline: #8f849b;
-    --on-accent: #1f1a26;
-    --accent-soft: #5a3c2a;
-    --focus: #fbf3ea;
+    --bg: #1e1814;
+    --surface: #2b231d;
+    --card: #3a2f26;
+    --text: #fbf1e6;
+    --muted: #c2b4a6;
+    --outline: #9a8b7c;
+    --on-accent: #1e1814;
+    --accent-soft: #5c3a24;
+    --focus: #fbf1e6;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #1f1a26;
-  --surface: #2b2433;
-  --card: #3b3046;
-  --text: #fbf3ea;
-  --muted: #bdb2c7;
-  --outline: #8f849b;
-  --on-accent: #1f1a26;
-  --accent-soft: #5a3c2a;
-  --focus: #fbf3ea;
+  --bg: #1e1814;
+  --surface: #2b231d;
+  --card: #3a2f26;
+  --text: #fbf1e6;
+  --muted: #c2b4a6;
+  --outline: #9a8b7c;
+  --on-accent: #1e1814;
+  --accent-soft: #5c3a24;
+  --focus: #fbf1e6;
 }
