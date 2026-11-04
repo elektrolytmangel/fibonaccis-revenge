@@ -13,16 +13,13 @@ body:
     attributes:
       label: Area
       options:
-        [
-          ROOM (rooms,
-          participants),
-          VOTE (voting,
-          reveal),
-          SYNC (kith sync),
-          PLAT (platform,
-          packaging),
-          new area,
-        ]
+        - ROOM (rooms and participants)
+        - VOTE (voting, reveal)
+        - UI (style, accessibility)
+        - LANG (languages)
+        - SYNC (kith sync)
+        - PLAT (platform, packaging)
+        - new area
     validations:
       required: true
   - type: input

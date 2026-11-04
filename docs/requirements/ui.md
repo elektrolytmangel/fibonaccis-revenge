@@ -63,3 +63,17 @@ fade of at most 150 ms; `prefers-reduced-motion` removes the fade.
 
 Empty and waiting states ("Waiting for 2 more votes…") must use short, human wording; no jargon about
 sync, keys or relays in the normal flow.
+
+### REQ-UI-009: Room layout
+
+- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** user (2026-11-04)
+
+The room must show, top to bottom: title with invite link; the cards to choose from; the actions (reveal, reset);
+the estimate row (REQ-VOTE-004); the participant list. Settings (theme, language) sit in a footer.
+
+### REQ-UI-010: Fits the screen
+
+- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** manual | **Source:** user (2026-11-04)
+
+The room must fit the viewport height without page scrolling. When the participant list is long, only the list
+scrolls; the cards, actions and estimate row stay in view. Cards stay in two rows of five on phones.

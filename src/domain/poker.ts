@@ -48,30 +48,22 @@ export function votedCount(state: RoomState): number {
   return state.participants.filter((p) => p.id in state.votes).length;
 }
 
-export interface Summary {
-  distribution: { card: Card; count: number }[];
-  /** Average of the numeric cards, or null if there are none. */
-  average: number | null;
-  /** True when at least two people voted and all votes are the same card. */
-  consensus: boolean;
-  voters: number;
+/** Fibonacci numbers up to the first one at or above `n` (0, 1, 2, 3, 5, 8, ...). */
+export function nextFibonacci(n: number): number {
+  let [a, b] = [0, 1];
+  while (a < n) [a, b] = [b, a + b];
+  return a;
 }
 
-export function summarize(state: RoomState): Summary {
-  const cards = state.participants.flatMap((p) => (p.id in state.votes ? [state.votes[p.id]] : []));
-  const distribution = DECK.map((card) => ({
-    card,
-    count: cards.filter((c) => c === card).length,
-  })).filter((d) => d.count > 0);
-  const numeric = cards.filter((c) => /^\d+$/.test(c)).map(Number);
-  const average =
-    numeric.length === 0
-      ? null
-      : Math.round((numeric.reduce((a, b) => a + b, 0) / numeric.length) * 10) / 10;
-  return {
-    distribution,
-    average,
-    consensus: cards.length >= 2 && distribution.length === 1,
-    voters: cards.length,
-  };
+/**
+ * The estimate of a round: the smallest Fibonacci number that is at least the average of the
+ * numeric votes. `null` when nobody cast a numeric vote (only "?" or no votes).
+ */
+export function estimate(state: RoomState): number | null {
+  const numeric = state.participants
+    .flatMap((p) => (p.id in state.votes ? [state.votes[p.id]] : []))
+    .filter((c) => /^\d+$/.test(c))
+    .map(Number);
+  if (numeric.length === 0) return null;
+  return nextFibonacci(numeric.reduce((x, y) => x + y, 0) / numeric.length);
 }

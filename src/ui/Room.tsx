@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { votedCount } from "../domain/poker";
+import { useI18n } from "../i18n/i18n";
 import type { RoomApi } from "../room/useLocalRoom";
 import { Deck } from "./Deck";
+import { Estimate } from "./Estimate";
 import { Participants } from "./Participants";
-import { Result } from "./Result";
+import { Settings } from "./Settings";
 
 export function Room({ room, link }: { room: RoomApi; link: string }) {
   const { state, me } = room;
+  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const voted = votedCount(state);
   const waiting = state.participants.length - voted;
 
   return (
-    <main className="page">
+    <main className="page page--room">
       <header className="header">
         <h1 className="title title--small">Fibonacci’s Revenge</h1>
         <button
@@ -23,49 +26,53 @@ export function Room({ room, link }: { room: RoomApi; link: string }) {
             setCopied(true);
           }}
         >
-          {copied ? "Link copied" : "Copy invite link"}
+          {copied ? t("room.linkCopied") : t("room.copyLink")}
         </button>
       </header>
 
+      <Deck selected={state.votes[me.id]} disabled={state.revealed} onPick={room.vote} />
+
+      <div className="actions">
+        <div className="actions__buttons">
+          <button
+            type="button"
+            className={state.revealed ? "btn btn--secondary" : "btn btn--primary"}
+            disabled={state.revealed || voted === 0}
+            onClick={room.reveal}
+          >
+            {t("room.reveal")}
+          </button>
+          <button
+            type="button"
+            className={state.revealed ? "btn btn--primary" : "btn btn--secondary"}
+            onClick={room.reset}
+          >
+            {t("room.reset")}
+          </button>
+        </div>
+        <p className="hint" role="status">
+          {state.revealed
+            ? ""
+            : voted === 0
+              ? t("room.hintStart")
+              : waiting > 0
+                ? t("room.waiting", { count: waiting })
+                : t("room.allVoted")}
+        </p>
+      </div>
+
+      <Estimate state={state} />
+
       <Participants state={state} meId={me.id} />
 
-      {state.revealed ? (
-        <>
-          <Result state={state} />
-          <div className="actions">
-            <button type="button" className="btn btn--primary" onClick={room.reset}>
-              Reset
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <Deck selected={state.votes[me.id]} disabled={false} onPick={room.vote} />
-          <div className="actions">
-            <button
-              type="button"
-              className="btn btn--primary"
-              disabled={voted === 0}
-              onClick={room.reveal}
-            >
-              Reveal votes
-            </button>
-            <p className="hint" role="status">
-              {voted === 0
-                ? "Pick a card to get started."
-                : waiting > 0
-                  ? `Waiting for ${waiting} more ${waiting === 1 ? "vote" : "votes"}…`
-                  : "Everyone has voted."}
-            </p>
-          </div>
-        </>
-      )}
-
-      {room.addDemoTeammate && (
-        <button type="button" className="btn btn--quiet dev" onClick={room.addDemoTeammate}>
-          Add test teammate (dev only)
-        </button>
-      )}
+      <footer className="footer">
+        {room.addDemoTeammate && (
+          <button type="button" className="btn btn--quiet" onClick={room.addDemoTeammate}>
+            {t("room.addDemo")}
+          </button>
+        )}
+        <Settings />
+      </footer>
     </main>
   );
 }

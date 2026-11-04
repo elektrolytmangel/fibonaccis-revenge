@@ -53,6 +53,10 @@ UI not built yet.
 | pnpm instead of npm | User (2026-11-04) | [ADR 0005](docs/adr/0005-pnpm.md) |
 | Palette (user-supplied, 2026-11-04): Oxford navy `#12355B` primary, Sky Surge `#6BB8D2` (replaced Pacific cyan, ADR 0009), plum `#D68FD6` sparingly, white and onyx `#0A0A0A` otherwise. Light = white/onyx/navy; dark = onyx/white, navy primary, inactive cards in the light-theme tint (ADR 0012) | User gave the five colours and rules; replaces sky/night-blue | [ADR 0007](docs/adr/0007-navy-cyan-plum-palette.md) |
 | Selected card shows no "✓ Your pick" text, only colour (lightness contrast ≥ 3:1 + `aria-pressed`); REQ-UI-005 reworded | User (2026-11-04): "the color is enough" | [ADR 0011](docs/adr/0011-selected-card-colour-only.md) |
+| Estimate row shows the smallest Fibonacci number ≥ the average of numeric votes; no other result/average/consensus UI; row always present, empty until reveal | User (2026-11-04) | REQ-VOTE-004 |
+| Room layout: title+invite, cards, actions, estimate row, participants (scrolls); fits the screen | User (2026-11-04) | REQ-UI-009/010 |
+| i18n de/en/pl without a library | Small app; `Intl.PluralRules` handles plurals | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
+| Favicon: white Fibonacci spiral with a plum dot on navy (`public/favicon.svg`) | Agent design, user asked for a "very nice" one | REQ-PLAT-004 |
 | UI first on local state, kith integrated afterwards                                                                          | User (2026-11-04): library ready in 1-2 days                     | Next steps 2-3                                    |
 | Requirements need user confirmation before implementation                                                                    | User (2026-11-04)                                                | Next steps 1                                      |
 | Process mirrors kith (PLAN.md, requirements as code, ADRs, agent merges own green PRs)                                       | User request (2026-11-04)                                        | `CLAUDE.md`                                       |
@@ -61,6 +65,9 @@ UI not built yet.
 ## Pitfalls already hit
 
 - **`typescript-eslint` does not support TypeScript 7** (peer `<6.1.0`), hence Biome (ADR 0004). Don't reintroduce ESLint until it does.
+- **Requirement IDs must match `REQ-[A-Z]+-\d{3}`**: no digits in the area prefix (so `LANG`, not `I18N`).
+- **Never `pkill -f` a pattern that also appears in your own command line**: it kills the shell (exit 144).
+- **Firefox headless screenshots** work with `--no-remote --profile <dir under ~/snap/firefox/common>` (snap confinement); the first call sometimes fails, retry.
 - **Biome must not format Markdown** (reflows the generated TRACEABILITY tables); `biome.json` limits it to code.
 - **pnpm 12 rejects packages younger than 1 day** (`minimumReleaseAge`), also from the lockfile: `pnpm install --frozen-lockfile` failed in CI on a same-day Biome release. Pin the previous release; keep the policy (supply-chain protection). Dependabot PRs for brand-new releases may need a day.
 - **Vitest needs `globals: true`** for `it`/`test` without imports (also what `reqs.py` detects as test context).
@@ -87,3 +94,4 @@ UI not built yet.
 - **2026-11-04**: Dark theme: inactive cards and bar tracks use Sky Surge instead of white (PR `style/dark-sky-cards`, ADR 0010).
 - **2026-11-04**: Removed "✓ Your pick" from the selected card (PR `feat/card-no-mark`, ADR 0011).
 - **2026-11-04**: Dark theme inactive cards use the same tint as the light theme instead of Sky Surge (PR `style/dark-light-cards`, ADR 0012). Sky Surge is avatar-only again.
+- **2026-11-04**: New room layout, estimate row (next Fibonacci above the average, nothing else), i18n de/en/pl, scrollable participant list, favicon (PR `feat/layout-i18n-estimate-favicon`). Checked in Firefox at 390 px, 1100 px, dark, de, pl. German/Polish texts are the agent's: needs a native review. Also fixed the requirement issue template (Prettier had split the dropdown labels).

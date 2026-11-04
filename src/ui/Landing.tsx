@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useI18n } from "../i18n/i18n";
+import { Settings } from "./Settings";
 
 interface Props {
   /** Room id from the link, if the user arrived through one. */
@@ -7,14 +9,13 @@ interface Props {
 }
 
 export function Landing({ roomId, onStart }: Props) {
+  const { t } = useI18n();
   const [name, setName] = useState("");
   const valid = name.trim().length > 0;
   return (
     <main className="page page--narrow">
       <h1 className="title">Fibonacci’s Revenge</h1>
-      <p className="lead">
-        {roomId ? "You’ve been invited to estimate together." : "Estimate together, calmly."}
-      </p>
+      <p className="lead">{roomId ? t("landing.leadInvited") : t("landing.lead")}</p>
       <form
         className="panel stack"
         onSubmit={(e) => {
@@ -23,7 +24,7 @@ export function Landing({ roomId, onStart }: Props) {
         }}
       >
         <label className="field">
-          <span>Your name</span>
+          <span>{t("landing.name")}</span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -32,9 +33,10 @@ export function Landing({ roomId, onStart }: Props) {
           />
         </label>
         <button type="submit" className="btn btn--primary" disabled={!valid}>
-          {roomId ? "Join room" : "Create room"}
+          {roomId ? t("landing.join") : t("landing.create")}
         </button>
       </form>
+      <Settings />
     </main>
   );
 }

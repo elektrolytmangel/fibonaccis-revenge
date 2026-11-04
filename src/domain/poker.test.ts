@@ -1,9 +1,11 @@
 import {
+  type Card,
+  estimate,
   initialRoom,
+  nextFibonacci,
   type RoomAction,
   type RoomState,
   roomReducer,
-  summarize,
   votedCount,
 } from "./poker";
 
@@ -54,24 +56,21 @@ describe("voting", () => {
   });
 
   // req: REQ-VOTE-004
-  it("summarizes distribution, average and consensus", () => {
-    const base = [join("a"), join("b"), join("c")];
-    const mixed = summarize(
-      run([
-        ...base,
-        { type: "vote", id: "a", card: "3" },
-        { type: "vote", id: "b", card: "5" },
-        { type: "vote", id: "c", card: "?" },
-      ]),
-    );
-    expect(mixed.average).toBe(4);
-    expect(mixed.consensus).toBe(false);
-    expect(mixed.distribution.map((d) => d.card)).toEqual(["3", "5", "?"]);
+  it("finds the next Fibonacci number at or above a value", () => {
+    expect([0, 0.5, 1, 1.5, 4, 5, 5.1, 10.5, 17, 21, 31.5, 100].map(nextFibonacci)).toEqual([
+      0, 1, 1, 2, 5, 5, 8, 13, 21, 21, 34, 144,
+    ]);
+  });
 
-    const same = summarize(
-      run([...base, { type: "vote", id: "a", card: "8" }, { type: "vote", id: "b", card: "8" }]),
-    );
-    expect(same.consensus).toBe(true);
-    expect(summarize(run([join("a"), { type: "vote", id: "a", card: "8" }])).consensus).toBe(false);
+  // req: REQ-VOTE-004
+  it("estimates the next Fibonacci number above the average of numeric votes", () => {
+    const base = [join("a"), join("b"), join("c")];
+    const vote = (id: string, card: Card): RoomAction => ({ type: "vote", id, card });
+    expect(estimate(run([...base, vote("a", "3"), vote("b", "5"), vote("c", "?")]))).toBe(5);
+    expect(estimate(run([...base, vote("a", "8"), vote("b", "13")]))).toBe(13);
+    expect(estimate(run([...base, vote("a", "5"), vote("b", "5")]))).toBe(5);
+    expect(estimate(run([...base, vote("a", "21"), vote("b", "42")]))).toBe(34);
+    expect(estimate(run([...base, vote("a", "?")]))).toBeNull();
+    expect(estimate(run(base))).toBeNull();
   });
 });

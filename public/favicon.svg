@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Fibonacci spiral">
+<rect width="64" height="64" rx="15" fill="#12355b"/>
+<path d="M18.8 28.7 A6.6 6.6 0 0 0 25.4 22.1 A6.6 6.6 0 0 0 18.8 15.5 A13.2 13.2 0 0 0 5.6 28.7 A19.8 19.8 0 0 0 25.4 48.5 A33.0 33.0 0 0 0 58.4 15.5" fill="none" stroke="#ffffff" stroke-width="4.6" stroke-linecap="round"/>
+<circle cx="58.4" cy="15.5" r="3.8" fill="#d68fd6"/>
+</svg>

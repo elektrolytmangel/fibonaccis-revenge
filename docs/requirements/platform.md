@@ -17,3 +17,9 @@ kith must be consumed as the `kith-wasm` npm tarball of a pinned GitHub Release.
 - **Priority:** should | **Phase:** 1 | **Status:** accepted | **Verify:** manual | **Source:** design §Platform
 
 The app should work in current Chrome, Firefox, Safari and Edge, desktop and mobile.
+
+### REQ-PLAT-004: Favicon
+
+- **Priority:** should | **Phase:** 1 | **Status:** implemented | **Verify:** manual | **Source:** user (2026-11-04)
+
+The app must have an SVG favicon in the app's palette that stays recognisable at 16 px.
