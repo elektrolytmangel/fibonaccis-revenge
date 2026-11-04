@@ -1,6 +1,6 @@
 # 0008: Dark theme with white cards and navy primary
 
-- **Status:** accepted
+- **Status:** accepted; white cards replaced by Sky Surge in [ADR 0010](0010-dark-sky-surge-cards.md)
 - **Date:** 2026-11-04
 - **Requirements:** REQ-UI-001, REQ-UI-004, REQ-UI-005
 - **Amends:** the dark-theme column of [ADR 0007](0007-navy-cyan-plum-palette.md)
