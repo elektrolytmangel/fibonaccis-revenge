@@ -47,7 +47,7 @@ describe("app", () => {
     expect(screen.getByRole("button", { name: "Reveal votes" })).toBeEnabled();
     await user.click(screen.getByRole("button", { name: "Reveal votes" }));
     expect(screen.queryByRole("button", { name: "Reveal votes" })).toBeNull();
-    expect(screen.getByRole("button", { name: "Next round" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Reset" })).toBeInTheDocument();
   });
 
   // req: REQ-VOTE-001
@@ -66,12 +66,12 @@ describe("app", () => {
   });
 
   // req: REQ-VOTE-005
-  it("starts the next round with cleared votes", async () => {
+  it("resets the room with cleared votes", async () => {
     const user = await startRoom();
     await user.click(screen.getByRole("button", { name: "8" }));
     await user.click(screen.getByRole("button", { name: "Reveal votes" }));
-    await user.click(screen.getByRole("button", { name: "Next round" }));
-    expect(screen.getByRole("heading", { name: "Round 2" })).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Reset" }));
+    expect(screen.getByRole("heading", { name: /fibonacci/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "8" })).toHaveAttribute("aria-pressed", "false");
   });
 

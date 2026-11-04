@@ -14,7 +14,7 @@ export function Room({ room, link }: { room: RoomApi; link: string }) {
   return (
     <main className="page">
       <header className="header">
-        <h1 className="title title--small">Round {state.round}</h1>
+        <h1 className="title title--small">Fibonacci’s Revenge</h1>
         <button
           type="button"
           className="btn btn--quiet"
@@ -34,7 +34,7 @@ export function Room({ room, link }: { room: RoomApi; link: string }) {
           <Result state={state} />
           <div className="actions">
             <button type="button" className="btn btn--primary" onClick={room.reset}>
-              Next round
+              Reset
             </button>
           </div>
         </>

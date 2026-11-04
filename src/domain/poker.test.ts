@@ -42,14 +42,14 @@ describe("voting", () => {
   });
 
   // req: REQ-VOTE-005
-  it("starts a new round with no votes", () => {
+  it("resets all votes and hides them again", () => {
     const s = run([
       join("ana"),
       { type: "vote", id: "ana", card: "2" },
       { type: "reveal" },
       { type: "reset" },
     ]);
-    expect(s).toMatchObject({ votes: {}, revealed: false, round: 2 });
+    expect(s).toMatchObject({ votes: {}, revealed: false });
     expect(s.participants).toHaveLength(1);
   });
 

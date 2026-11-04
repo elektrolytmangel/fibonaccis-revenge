@@ -184,8 +184,9 @@ body {
 }
 
 .deck {
+  /* Extra space between the participant list and the cards. */
   border: 0;
-  margin: 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
   min-width: 0;
   display: grid;
