@@ -36,7 +36,7 @@ jobs:
         id: app
         run: |
           if [ -f package.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "No package.json yet; skipping."; fi
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         if: steps.app.outputs.present == 'true'
         with:
           node-version: 22
