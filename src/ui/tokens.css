@@ -1,17 +1,17 @@
-/* Design tokens (REQ-UI-003). Flat style: solid fills, no shadows or gradients (ADR 0003). */
+/* Design tokens (REQ-UI-003). Flat style: solid fills, no shadows or gradients (ADR 0003, colours ADR 0006). */
 :root {
   --font: "Nunito Variable", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
 
-  --bg: #fff6ec;
+  --bg: #f2f8ff;
   --surface: #ffffff;
-  --card: #ffe9d6;
-  --text: #2b2433;
-  --muted: #6b6275;
-  --outline: #8a7f94;
-  --accent: #f47d31;
-  --on-accent: #2b2433;
-  --accent-soft: #ffd9bd;
-  --focus: #2b2433;
+  --card: #dcebff;
+  --text: #1b2a41;
+  --muted: #5a6b85;
+  --outline: #6f84a3;
+  --accent: #5aa9f5;
+  --on-accent: #1b2a41;
+  --accent-soft: #bfddfb;
+  --focus: #1b2a41;
 
   --tint-yellow: #ffd66b;
   --tint-blue: #a9d3f5;
@@ -35,28 +35,31 @@
   --target: 48px;
 }
 
+/* Dark theme: night blue with a soft periwinkle accent (ADR 0006). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1f1a26;
-    --surface: #2b2433;
-    --card: #3b3046;
-    --text: #fbf3ea;
-    --muted: #bdb2c7;
-    --outline: #8f849b;
-    --on-accent: #1f1a26;
-    --accent-soft: #5a3c2a;
-    --focus: #fbf3ea;
+    --bg: #111a2b;
+    --surface: #1b2740;
+    --card: #2a3a5c;
+    --text: #eef3fb;
+    --muted: #a9b8d0;
+    --accent: #7fb2ff;
+    --outline: #7f93b3;
+    --on-accent: #111a2b;
+    --accent-soft: #34507e;
+    --focus: #eef3fb;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #1f1a26;
-  --surface: #2b2433;
-  --card: #3b3046;
-  --text: #fbf3ea;
-  --muted: #bdb2c7;
-  --outline: #8f849b;
-  --on-accent: #1f1a26;
-  --accent-soft: #5a3c2a;
-  --focus: #fbf3ea;
+  --bg: #111a2b;
+  --surface: #1b2740;
+  --card: #2a3a5c;
+  --text: #eef3fb;
+  --muted: #a9b8d0;
+  --accent: #7fb2ff;
+  --outline: #7f93b3;
+  --on-accent: #111a2b;
+  --accent-soft: #34507e;
+  --focus: #eef3fb;
 }

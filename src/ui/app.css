@@ -140,7 +140,7 @@ body {
   display: grid;
   place-items: center;
   font-weight: 800;
-  color: #2b2433;
+  color: #1b2a41;
 }
 .avatar--yellow {
   background: var(--tint-yellow);
