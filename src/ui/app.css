@@ -140,19 +140,18 @@ body {
   display: grid;
   place-items: center;
   font-weight: 800;
-  color: #1b2a41;
 }
-.avatar--yellow {
-  background: var(--tint-yellow);
+.avatar--a {
+  background: var(--avatar-a);
+  color: var(--on-avatar-a);
 }
-.avatar--blue {
-  background: var(--tint-blue);
+.avatar--b {
+  background: var(--avatar-b);
+  color: var(--on-avatar-b);
 }
-.avatar--pink {
-  background: var(--tint-pink);
-}
-.avatar--green {
-  background: var(--tint-green);
+.avatar--c {
+  background: var(--avatar-c);
+  color: var(--on-avatar-c);
 }
 
 .chip {
@@ -166,8 +165,8 @@ body {
 .chip--value {
   min-width: 44px;
   text-align: center;
-  background: var(--accent-soft);
-  color: var(--text);
+  background: var(--highlight);
+  color: var(--on-highlight);
   border-radius: var(--radius-pill);
   padding: var(--space-1) var(--space-3);
   font-size: var(--text-md);

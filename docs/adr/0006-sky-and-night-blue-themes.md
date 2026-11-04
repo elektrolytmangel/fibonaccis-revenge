@@ -1,6 +1,6 @@
 # 0006: Sky and night-blue themes, no orange
 
-- **Status:** accepted
+- **Status:** superseded by [ADR 0007](0007-navy-cyan-plum-palette.md)
 - **Date:** 2026-11-04
 - **Requirements:** REQ-UI-001, REQ-UI-004, REQ-UI-005
 - **Supersedes:** the colour decisions of [ADR 0003](0003-flat-headspace-style.md)

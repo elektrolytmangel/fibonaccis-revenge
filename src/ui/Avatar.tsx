@@ -1,4 +1,4 @@
-const TINTS = ["yellow", "blue", "pink", "green"] as const;
+const TINTS = ["a", "b", "c"] as const;
 
 function tintFor(id: string): (typeof TINTS)[number] {
   let h = 0;

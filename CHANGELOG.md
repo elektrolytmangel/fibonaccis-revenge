@@ -7,3 +7,4 @@
 - Tooling: Biome replaces ESLint and Prettier; TypeScript 7.
 - Package manager: pnpm.
 - Themes: sky (light) and night blue (dark), no orange.
+- Themes: user palette (Oxford navy, Pacific cyan, plum, white, onyx).
