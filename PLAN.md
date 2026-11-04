@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-04 (requirements accepted, style chosen; UI in progress)
+- **Last updated:** 2026-11-04 (local-state UI built, PR open)
 - **Version:** none yet
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
 
@@ -26,7 +26,7 @@ UI not built yet.
 ### Next steps (in order)
 
 1. ~~User confirms requirements and picks a style~~ Done 2026-11-04 (see Decisions).
-2. **UI on local state (in progress)** (no kith yet): room shell, Fibonacci deck, hidden votes, reveal, result summary, reset (REQ-ROOM-_, REQ-VOTE-_, REQ-UI-*). Pure logic in `src/domain/` so kith can replace the state source later.
+2. **UI on local state (built, `feat/ui-local-room`; awaiting the user's visual review)** (no kith yet): room shell, Fibonacci deck, hidden votes, reveal, result summary, reset (REQ-ROOM-_, REQ-VOTE-_, REQ-UI-*). Pure logic in `src/domain/` so kith can replace the state source later.
 3. **Integrate kith** once the library is ready (user: ready in ~1-2 days from 2026-11-04): consume the `kith-wasm` tarball ([ADR 0001](docs/adr/0001-react-vite-kith-npm.md)), room/vote data model ADR, smoke test two tabs through a local relay (REQ-SYNC-*).
 4. **Polish**: motion, dark theme, rejoin, configurable decks.
 
@@ -69,3 +69,4 @@ UI not built yet.
 - **2026-11-04**: Repository structure set up, modelled on kith.
 - **2026-11-04**: App scaffold (Vite/React/TS/Vitest/ESLint/Prettier), UI requirements and style options added. Next: user confirms requirements and style.
 - **2026-11-04**: PR #1 merged (the user allowed the merge after the classifier blocked it once). User accepted all requirements and chose the style (ADR 0003). Next: build the UI on local state.
+- **2026-11-04**: Local-state UI (PR `feat/ui-local-room`). Domain + UI tests tagged with requirements. Next: user reviews the look (`npm run dev`), then kith integration when the library is ready.

@@ -3,3 +3,4 @@
 ## Unreleased
 
 - Repository structure.
+- Local-state UI: rooms, Fibonacci deck, hidden votes, reveal, results, themes.
