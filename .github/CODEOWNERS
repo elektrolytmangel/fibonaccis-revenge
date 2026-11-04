@@ -1,0 +1,6 @@
+# Requested automatically as reviewers; make reviews required under Settings → Branches → main.
+*                    @elektrolytmangel
+
+# Decisions and pipeline
+/docs/adr/           @elektrolytmangel
+/.github/workflows/  @elektrolytmangel
