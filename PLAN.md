@@ -47,10 +47,11 @@ UI not built yet.
 | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------- |
 | Web app on TypeScript + Vite + React                                                                                         | User choice (2026-11-04)                                         | [ADR 0001](docs/adr/0001-react-vite-kith-npm.md)  |
 | kith consumed as npm tarball from a GitHub Release                                                                           | User choice (2026-11-04); kith publishes to GitHub Releases only | [ADR 0001](docs/adr/0001-react-vite-kith-npm.md)  |
-| Style: flat, Headspace-oriented (cream, one orange accent, rounded type), no micro-movements; changed REQ-UI-007 accordingly | User (2026-11-04)                                                | [ADR 0003](docs/adr/0003-flat-headspace-style.md) |
+| Style: flat, Headspace-oriented (one accent per theme, rounded type), no micro-movements; changed REQ-UI-007 accordingly | User (2026-11-04)                                                | [ADR 0003](docs/adr/0003-flat-headspace-style.md) |
 | All 24 requirements accepted as written (REQ-UI-007 reworded for the style)                                                  | User (2026-11-04)                                                | `docs/requirements/`                              |
 | Biome (lint + format) instead of ESLint/Prettier; TypeScript 7 | `typescript-eslint` caps TypeScript at <6.1 and blocked Dependabot #5. User: "do this" (2026-11-04) | [ADR 0004](docs/adr/0004-biome-instead-of-eslint.md) |
 | pnpm instead of npm | User (2026-11-04) | [ADR 0005](docs/adr/0005-pnpm.md) |
+| Themes: light = sky (`#F2F8FF`, accent `#5AA9F5`), dark = night blue (`#111A2B`, accent `#7FB2FF`); **no orange**, each theme has its own accent | User (2026-11-04): disliked the purple/espresso dark and orange; chose "Sky day / Night blue" from 3 pairings (alternatives: mint/forest, rose/plum) | [ADR 0006](docs/adr/0006-sky-and-night-blue-themes.md) |
 | UI first on local state, kith integrated afterwards                                                                          | User (2026-11-04): library ready in 1-2 days                     | Next steps 2-3                                    |
 | Requirements need user confirmation before implementation                                                                    | User (2026-11-04)                                                | Next steps 1                                      |
 | Process mirrors kith (PLAN.md, requirements as code, ADRs, agent merges own green PRs)                                       | User request (2026-11-04)                                        | `CLAUDE.md`                                       |
@@ -77,3 +78,4 @@ UI not built yet.
 - **2026-11-04**: Local-state UI (PR `feat/ui-local-room`). Domain + UI tests tagged with requirements. Next: user reviews the look (`pnpm dev`), then kith integration when the library is ready.
 - **2026-11-04**: Dependabot PRs #6, #4, #2 merged. ESLint/Prettier replaced by Biome so TypeScript 7 works (PR `chore/biome-typescript-7`, supersedes Dependabot #5).
 - **2026-11-04**: Package manager switched from npm to pnpm (PR `chore/pnpm`).
+- **2026-11-04**: Themes redone without orange: sky light, night-blue dark (PR `style/sky-night-themes`). Espresso PR #10 closed.
