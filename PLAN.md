@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-04 (local-state UI built, PR open)
+- **Last updated:** 2026-11-04 (pnpm)
 - **Version:** none yet
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
 
@@ -50,6 +50,7 @@ UI not built yet.
 | Style: flat, Headspace-oriented (cream, one orange accent, rounded type), no micro-movements; changed REQ-UI-007 accordingly | User (2026-11-04)                                                | [ADR 0003](docs/adr/0003-flat-headspace-style.md) |
 | All 24 requirements accepted as written (REQ-UI-007 reworded for the style)                                                  | User (2026-11-04)                                                | `docs/requirements/`                              |
 | Biome (lint + format) instead of ESLint/Prettier; TypeScript 7 | `typescript-eslint` caps TypeScript at <6.1 and blocked Dependabot #5. User: "do this" (2026-11-04) | [ADR 0004](docs/adr/0004-biome-instead-of-eslint.md) |
+| pnpm instead of npm | User (2026-11-04) | [ADR 0005](docs/adr/0005-pnpm.md) |
 | UI first on local state, kith integrated afterwards                                                                          | User (2026-11-04): library ready in 1-2 days                     | Next steps 2-3                                    |
 | Requirements need user confirmation before implementation                                                                    | User (2026-11-04)                                                | Next steps 1                                      |
 | Process mirrors kith (PLAN.md, requirements as code, ADRs, agent merges own green PRs)                                       | User request (2026-11-04)                                        | `CLAUDE.md`                                       |
@@ -59,6 +60,7 @@ UI not built yet.
 
 - **`typescript-eslint` does not support TypeScript 7** (peer `<6.1.0`), hence Biome (ADR 0004). Don't reintroduce ESLint until it does.
 - **Biome must not format Markdown** (reflows the generated TRACEABILITY tables); `biome.json` limits it to code.
+- **pnpm 12 rejects packages younger than 1 day** (`minimumReleaseAge`), also from the lockfile: `pnpm install --frozen-lockfile` failed in CI on a same-day Biome release. Pin the previous release; keep the policy (supply-chain protection). Dependabot PRs for brand-new releases may need a day.
 - **Vitest needs `globals: true`** for `it`/`test` without imports (also what `reqs.py` detects as test context).
 
 ## Working agreements
@@ -72,5 +74,6 @@ UI not built yet.
 - **2026-11-04**: Repository structure set up, modelled on kith.
 - **2026-11-04**: App scaffold (Vite/React/TS/Vitest/ESLint/Prettier), UI requirements and style options added. Next: user confirms requirements and style.
 - **2026-11-04**: PR #1 merged (the user allowed the merge after the classifier blocked it once). User accepted all requirements and chose the style (ADR 0003). Next: build the UI on local state.
-- **2026-11-04**: Local-state UI (PR `feat/ui-local-room`). Domain + UI tests tagged with requirements. Next: user reviews the look (`npm run dev`), then kith integration when the library is ready.
+- **2026-11-04**: Local-state UI (PR `feat/ui-local-room`). Domain + UI tests tagged with requirements. Next: user reviews the look (`pnpm dev`), then kith integration when the library is ready.
 - **2026-11-04**: Dependabot PRs #6, #4, #2 merged. ESLint/Prettier replaced by Biome so TypeScript 7 works (PR `chore/biome-typescript-7`, supersedes Dependabot #5).
+- **2026-11-04**: Package manager switched from npm to pnpm (PR `chore/pnpm`).
