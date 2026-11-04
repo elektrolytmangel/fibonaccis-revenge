@@ -8,3 +8,4 @@
 - Package manager: pnpm.
 - Themes: sky (light) and night blue (dark), no orange.
 - Themes: user palette (Oxford navy, Pacific cyan, plum, white, onyx).
+- Dark theme: white inactive cards, navy primary.

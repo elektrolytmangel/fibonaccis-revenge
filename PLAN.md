@@ -51,7 +51,7 @@ UI not built yet.
 | All 24 requirements accepted as written (REQ-UI-007 reworded for the style)                                                  | User (2026-11-04)                                                | `docs/requirements/`                              |
 | Biome (lint + format) instead of ESLint/Prettier; TypeScript 7 | `typescript-eslint` caps TypeScript at <6.1 and blocked Dependabot #5. User: "do this" (2026-11-04) | [ADR 0004](docs/adr/0004-biome-instead-of-eslint.md) |
 | pnpm instead of npm | User (2026-11-04) | [ADR 0005](docs/adr/0005-pnpm.md) |
-| Palette (user-supplied, 2026-11-04): Oxford navy `#12355B` primary, Pacific cyan `#348AA7` primary where navy lacks contrast (dark theme) , plum `#D68FD6` sparingly, white and onyx `#0A0A0A` otherwise. Light = white/onyx/navy, dark = onyx/white/navy layers/cyan | User gave the five colours and rules; replaces sky/night-blue | [ADR 0007](docs/adr/0007-navy-cyan-plum-palette.md) |
+| Palette (user-supplied, 2026-11-04): Oxford navy `#12355B` primary, Pacific cyan `#348AA7` (now unused as primary), plum `#D68FD6` sparingly, white and onyx `#0A0A0A` otherwise. Light = white/onyx/navy; dark = onyx/white, navy primary, white inactive cards (ADR 0008), cyan only in avatars | User gave the five colours and rules; replaces sky/night-blue | [ADR 0007](docs/adr/0007-navy-cyan-plum-palette.md) |
 | UI first on local state, kith integrated afterwards                                                                          | User (2026-11-04): library ready in 1-2 days                     | Next steps 2-3                                    |
 | Requirements need user confirmation before implementation                                                                    | User (2026-11-04)                                                | Next steps 1                                      |
 | Process mirrors kith (PLAN.md, requirements as code, ADRs, agent merges own green PRs)                                       | User request (2026-11-04)                                        | `CLAUDE.md`                                       |
@@ -80,3 +80,4 @@ UI not built yet.
 - **2026-11-04**: Package manager switched from npm to pnpm (PR `chore/pnpm`).
 - **2026-11-04**: Themes redone without orange: sky light, night-blue dark (PR `style/sky-night-themes`). Espresso PR #10 closed.
 - **2026-11-04**: Themes rebuilt on the user's palette (navy/cyan/plum/white/onyx), PR `style/palette-navy-cyan-plum`. Sky/night-blue (ADR 0006) superseded.
+- **2026-11-04**: Dark theme: white inactive cards, navy primary instead of cyan (PR `style/dark-white-cards`, ADR 0008). Known: navy buttons on onyx have only 1.6:1 shape contrast; their white text is 12.5:1.

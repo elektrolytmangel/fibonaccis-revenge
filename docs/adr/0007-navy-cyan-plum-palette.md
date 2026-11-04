@@ -1,6 +1,6 @@
 # 0007: Navy, cyan and plum palette
 
-- **Status:** accepted
+- **Status:** accepted; dark-theme rows superseded by [ADR 0008](0008-dark-white-cards-navy-primary.md)
 - **Date:** 2026-11-04
 - **Requirements:** REQ-UI-001, REQ-UI-003, REQ-UI-004, REQ-UI-005
 - **Supersedes:** [ADR 0006](0006-sky-and-night-blue-themes.md)
