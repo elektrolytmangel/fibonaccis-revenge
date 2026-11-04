@@ -15,6 +15,7 @@
   --card: color-mix(in srgb, var(--navy) 12%, var(--white));
   --text: var(--onyx);
   --on-card: var(--onyx);
+  --on-card-muted: color-mix(in srgb, var(--navy) 75%, var(--white));
   --muted: color-mix(in srgb, var(--navy) 75%, var(--white));
   --outline: color-mix(in srgb, var(--navy) 60%, var(--white));
   --accent: var(--navy);
@@ -53,6 +54,7 @@
     --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
     --card: color-mix(in srgb, var(--navy) 12%, var(--white));
     --on-card: var(--onyx);
+    --on-card-muted: color-mix(in srgb, var(--navy) 75%, var(--white));
     --text: var(--white);
     --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
     --outline: color-mix(in srgb, var(--white) 50%, var(--onyx));
@@ -71,6 +73,7 @@
   --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
   --card: color-mix(in srgb, var(--navy) 12%, var(--white));
   --on-card: var(--onyx);
+  --on-card-muted: color-mix(in srgb, var(--navy) 75%, var(--white));
   --text: var(--white);
   --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
   --outline: color-mix(in srgb, var(--white) 50%, var(--onyx));

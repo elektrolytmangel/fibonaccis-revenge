@@ -42,16 +42,18 @@ describe("app", () => {
   });
 
   // req: REQ-UI-002
-  it("makes one action primary per state", async () => {
+  it("keeps Reveal primary and Reset a constant secondary button", async () => {
     const user = await startRoom();
     await user.click(screen.getByRole("button", { name: "5" }));
     const reveal = screen.getByRole("button", { name: "Reveal votes" });
     const reset = screen.getByRole("button", { name: "Reset" });
     expect(reveal).toHaveClass("btn--primary");
     expect(reset).toHaveClass("btn--secondary");
+    expect(reset).toBeEnabled();
     await user.click(reveal);
     expect(reveal).toBeDisabled();
-    expect(reset).toHaveClass("btn--primary");
+    expect(reset).toHaveClass("btn--secondary");
+    expect(reset).toBeEnabled();
   });
 
   // req: REQ-UI-009

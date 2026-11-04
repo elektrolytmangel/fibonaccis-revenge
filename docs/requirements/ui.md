@@ -16,8 +16,10 @@ sparingly), friendly rounded type. See [ADR 0003](../adr/0003-flat-headspace-sty
 
 - **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** review | **Source:** design §Style
 
-At every room state (waiting, voting, revealed) exactly one primary action must be visually dominant
-(e.g. "Reveal", "Reset"); secondary actions must be visibly quieter.
+Reveal must be the one visually dominant action. Reset is always visible, always enabled and always the
+same quiet secondary button; it never changes its look between states. Disabled controls (Reveal before the
+first vote and after the reveal, the cards after the reveal) must not look washed out: no transparency, cards keep
+their colours.
 
 ### REQ-UI-003: Design tokens
 

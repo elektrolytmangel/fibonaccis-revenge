@@ -36,17 +36,13 @@ export function Room({ room, link }: { room: RoomApi; link: string }) {
         <div className="actions__buttons">
           <button
             type="button"
-            className={state.revealed ? "btn btn--secondary" : "btn btn--primary"}
+            className="btn btn--primary"
             disabled={state.revealed || voted === 0}
             onClick={room.reveal}
           >
             {t("room.reveal")}
           </button>
-          <button
-            type="button"
-            className={state.revealed ? "btn btn--primary" : "btn btn--secondary"}
-            onClick={room.reset}
-          >
+          <button type="button" className="btn btn--secondary" onClick={room.reset}>
             {t("room.reset")}
           </button>
         </div>
