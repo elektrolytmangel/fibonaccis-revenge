@@ -16,3 +16,4 @@
 - Dark theme: inactive cards use the light theme's tint.
 - Room layout redone; estimate row (next Fibonacci above the average) replaces the result panel; German/English/Polish; scrollable participant list; SVG favicon.
 - Reset button constant; flat disabled states.
+- Plan refreshed.
