@@ -1,4 +1,4 @@
-/* Design tokens (REQ-UI-003). Flat style: solid fills, no shadows or gradients (ADR 0003, colours ADR 0007). */
+/* Design tokens (REQ-UI-003). Flat style: solid fills, no shadows or gradients (ADR 0003, colours ADR 0007/0008). */
 :root {
   --font: "Nunito Variable", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
 
@@ -14,6 +14,7 @@
   --surface: color-mix(in srgb, var(--navy) 6%, var(--white));
   --card: color-mix(in srgb, var(--navy) 12%, var(--white));
   --text: var(--onyx);
+  --on-card: var(--onyx);
   --muted: color-mix(in srgb, var(--navy) 75%, var(--white));
   --outline: color-mix(in srgb, var(--navy) 60%, var(--white));
   --accent: var(--navy);
@@ -45,18 +46,18 @@
   --target: 48px;
 }
 
-/* Dark theme: onyx and white, navy for layers, cyan as the primary colour (ADR 0007). */
+/* Dark theme: onyx and white, navy panels and primary, white cards (ADR 0008). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: var(--onyx);
     --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
-    --card: var(--navy);
+    --card: var(--white);
+    --on-card: var(--onyx);
     --text: var(--white);
     --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
     --outline: color-mix(in srgb, var(--white) 50%, var(--onyx));
-    /* Navy is too close to onyx to carry buttons, so cyan is the primary here. */
-    --accent: var(--cyan);
-    --on-accent: var(--onyx);
+    --accent: var(--navy);
+    --on-accent: var(--white);
     --highlight: var(--plum);
     --on-highlight: var(--onyx);
     --focus: var(--white);
@@ -68,13 +69,13 @@
 :root[data-theme="dark"] {
   --bg: var(--onyx);
   --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
-  --card: var(--navy);
+  --card: var(--white);
+  --on-card: var(--onyx);
   --text: var(--white);
   --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
   --outline: color-mix(in srgb, var(--white) 50%, var(--onyx));
-  /* Navy is too close to onyx to carry buttons, so cyan is the primary here. */
-  --accent: var(--cyan);
-  --on-accent: var(--onyx);
+  --accent: var(--navy);
+  --on-accent: var(--white);
   --highlight: var(--plum);
   --on-highlight: var(--onyx);
   --focus: var(--white);

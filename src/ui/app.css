@@ -109,7 +109,8 @@ body {
 }
 .btn:disabled {
   background: var(--card);
-  color: var(--muted);
+  color: var(--on-card);
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -196,7 +197,7 @@ body {
   border: 0;
   border-radius: var(--radius-lg);
   background: var(--card);
-  color: var(--text);
+  color: var(--on-card);
   font: inherit;
   cursor: pointer;
   display: flex;
