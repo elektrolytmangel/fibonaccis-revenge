@@ -7,6 +7,7 @@ that supersedes the old one.
 | ADR                                  | Decision                                                             |
 | ------------------------------------ | -------------------------------------------------------------------- |
 | [0001](0001-react-vite-kith-npm.md)  | TypeScript + Vite + React, kith as npm tarball from a GitHub Release |
+| [0012](0012-dark-cards-same-as-light.md) | Dark theme: inactive cards use the light theme's tint (supersedes 0010) |
 | [0011](0011-selected-card-colour-only.md) | Selected card marked by colour only |
 | [0010](0010-dark-sky-surge-cards.md) | Dark theme: Sky Surge inactive cards (amends 0008) |
 | [0009](0009-sky-surge-replaces-cyan.md) | Sky Surge `#6BB8D2` replaces Pacific cyan |

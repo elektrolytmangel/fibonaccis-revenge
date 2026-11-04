@@ -1,6 +1,6 @@
 # 0010: Dark theme with Sky Surge cards
 
-- **Status:** accepted
+- **Status:** superseded by [ADR 0012](0012-dark-cards-same-as-light.md)
 - **Date:** 2026-11-04
 - **Requirements:** REQ-UI-001, REQ-UI-004, REQ-UI-005
 - **Amends:** [ADR 0008](0008-dark-white-cards-navy-primary.md)

@@ -46,12 +46,12 @@
   --target: 48px;
 }
 
-/* Dark theme: onyx and white, navy panels and primary, sky surge cards (ADR 0010). */
+/* Dark theme: onyx and white, navy panels and primary, light-tint cards as in the light theme (ADR 0012). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: var(--onyx);
     --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
-    --card: var(--sky);
+    --card: color-mix(in srgb, var(--navy) 12%, var(--white));
     --on-card: var(--onyx);
     --text: var(--white);
     --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
@@ -69,7 +69,7 @@
 :root[data-theme="dark"] {
   --bg: var(--onyx);
   --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
-  --card: var(--sky);
+  --card: color-mix(in srgb, var(--navy) 12%, var(--white));
   --on-card: var(--onyx);
   --text: var(--white);
   --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
