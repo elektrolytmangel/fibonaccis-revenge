@@ -14,6 +14,6 @@ kith must be consumed as the `kith-wasm` npm tarball of a pinned GitHub Release.
 
 ### REQ-PLAT-003: Modern browsers
 
-- **Priority:** should | **Phase:** 1 | **Status:** proposed | **Verify:** manual | **Source:** design §Platform
+- **Priority:** should | **Phase:** 1 | **Status:** accepted | **Verify:** manual | **Source:** design §Platform
 
 The app should work in current Chrome, Firefox, Safari and Edge, desktop and mobile.

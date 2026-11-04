@@ -22,7 +22,7 @@ metadata line and the text:
 ```markdown
 ### REQ-VOTE-001: Votes hidden until reveal
 
-- **Priority:** must | **Phase:** 1 | **Status:** proposed | **Verify:** test | **Source:** design §Voting
+- **Priority:** must | **Phase:** 1 | **Status:** accepted | **Verify:** test | **Source:** design §Voting
 
 Other participants' votes must not be shown until a reveal.
 ```

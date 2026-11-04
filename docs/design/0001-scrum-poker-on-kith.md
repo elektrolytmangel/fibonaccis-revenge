@@ -16,9 +16,9 @@ sync through a kith relay, end-to-end encrypted.
 3. **Polish**: result summary, rejoin, configurable decks, mobile.
 4. **Hardening**: admission/permissions once kith supports invitations and permission checks.
 
-## Style (user choice pending)
+## Style (decided: [ADR 0003](../adr/0003-flat-headspace-style.md))
 
-Goal (REQ-UI-001): a unique look that feels friendly and is not overloaded. Options, each inspired by
+Chosen by the user: a flat take on Headspace (not one of A-D as is). Goal (REQ-UI-001): a unique look that feels friendly and is not overloaded. Options, each inspired by
 well-known products; the choice only changes the design tokens (REQ-UI-003):
 
 | Option             | Inspiration               | Feel                                                                                             |
