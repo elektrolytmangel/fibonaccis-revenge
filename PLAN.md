@@ -60,6 +60,7 @@ UI not built yet.
 
 - **`typescript-eslint` does not support TypeScript 7** (peer `<6.1.0`), hence Biome (ADR 0004). Don't reintroduce ESLint until it does.
 - **Biome must not format Markdown** (reflows the generated TRACEABILITY tables); `biome.json` limits it to code.
+- **pnpm 12 rejects packages younger than 1 day** (`minimumReleaseAge`), also from the lockfile: `pnpm install --frozen-lockfile` failed in CI on a same-day Biome release. Pin the previous release; keep the policy (supply-chain protection). Dependabot PRs for brand-new releases may need a day.
 - **Vitest needs `globals: true`** for `it`/`test` without imports (also what `reqs.py` detects as test context).
 
 ## Working agreements
