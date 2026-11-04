@@ -57,6 +57,7 @@ UI not built yet.
 | Room layout: title+invite, cards, actions, estimate row, participants (scrolls); fits the screen | User (2026-11-04) | REQ-UI-009/010 |
 | i18n de/en/pl without a library | Small app; `Intl.PluralRules` handles plurals | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
 | Favicon: white Fibonacci spiral with a plum dot on navy (`public/favicon.svg`) | Agent design, user asked for a "very nice" one | REQ-PLAT-004 |
+| Reset: constant, always enabled secondary button. Disabled controls are flat (cards unchanged after reveal, disabled buttons muted text on the card tint, no opacity) | User (2026-11-04) | REQ-UI-002 |
 | UI first on local state, kith integrated afterwards                                                                          | User (2026-11-04): library ready in 1-2 days                     | Next steps 2-3                                    |
 | Requirements need user confirmation before implementation                                                                    | User (2026-11-04)                                                | Next steps 1                                      |
 | Process mirrors kith (PLAN.md, requirements as code, ADRs, agent merges own green PRs)                                       | User request (2026-11-04)                                        | `CLAUDE.md`                                       |
@@ -95,3 +96,4 @@ UI not built yet.
 - **2026-11-04**: Removed "✓ Your pick" from the selected card (PR `feat/card-no-mark`, ADR 0011).
 - **2026-11-04**: Dark theme inactive cards use the same tint as the light theme instead of Sky Surge (PR `style/dark-light-cards`, ADR 0012). Sky Surge is avatar-only again.
 - **2026-11-04**: New room layout, estimate row (next Fibonacci above the average, nothing else), i18n de/en/pl, scrollable participant list, favicon (PR `feat/layout-i18n-estimate-favicon`). Checked in Firefox at 390 px, 1100 px, dark, de, pl. German/Polish texts are the agent's: needs a native review. Also fixed the requirement issue template (Prettier had split the dropdown labels).
+- **2026-11-04**: Reset is a constant secondary button; revealed/disabled states no longer use opacity (PR `style/constant-reset-flat-disabled`).

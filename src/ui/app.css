@@ -116,8 +116,7 @@ body {
 }
 .btn:disabled {
   background: var(--card);
-  color: var(--on-card);
-  opacity: 0.5;
+  color: var(--on-card-muted);
   cursor: not-allowed;
 }
 
@@ -235,10 +234,8 @@ body {
   color: var(--on-accent);
 }
 .card:disabled {
+  /* Locked after the reveal: same colours, just no interaction. */
   cursor: default;
-}
-.card:disabled:not(.card--selected) {
-  opacity: 0.55;
 }
 
 .actions {
