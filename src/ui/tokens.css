@@ -1,22 +1,32 @@
-/* Design tokens (REQ-UI-003). Flat style: solid fills, no shadows or gradients (ADR 0003, colours ADR 0006). */
+/* Design tokens (REQ-UI-003). Flat style: solid fills, no shadows or gradients (ADR 0003, colours ADR 0007). */
 :root {
   --font: "Nunito Variable", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
 
-  --bg: #f2f8ff;
-  --surface: #ffffff;
-  --card: #dcebff;
-  --text: #1b2a41;
-  --muted: #5a6b85;
-  --outline: #6f84a3;
-  --accent: #5aa9f5;
-  --on-accent: #1b2a41;
-  --accent-soft: #bfddfb;
-  --focus: #1b2a41;
+  /* Palette (ADR 0007). Navy is the brand colour; cyan, plum and onyx are used sparingly. */
+  --navy: #12355b;
+  --cyan: #348aa7;
+  --plum: #d68fd6;
+  --white: #ffffff;
+  --onyx: #0a0a0a;
 
-  --tint-yellow: #ffd66b;
-  --tint-blue: #a9d3f5;
-  --tint-pink: #ffb8cc;
-  --tint-green: #b7e4c7;
+  /* Light theme: white and onyx, navy as the primary colour. */
+  --bg: var(--white);
+  --surface: color-mix(in srgb, var(--navy) 6%, var(--white));
+  --card: color-mix(in srgb, var(--navy) 12%, var(--white));
+  --text: var(--onyx);
+  --muted: color-mix(in srgb, var(--navy) 75%, var(--white));
+  --outline: color-mix(in srgb, var(--navy) 60%, var(--white));
+  --accent: var(--navy);
+  --on-accent: var(--white);
+  --highlight: var(--plum);
+  --on-highlight: var(--onyx);
+  --focus: var(--navy);
+  --avatar-a: var(--navy);
+  --on-avatar-a: var(--white);
+  --avatar-b: var(--cyan);
+  --on-avatar-b: var(--onyx);
+  --avatar-c: var(--plum);
+  --on-avatar-c: var(--onyx);
 
   --radius-lg: 24px;
   --radius-md: 16px;
@@ -35,31 +45,39 @@
   --target: 48px;
 }
 
-/* Dark theme: night blue with a soft periwinkle accent (ADR 0006). */
+/* Dark theme: onyx and white, navy for layers, cyan as the primary colour (ADR 0007). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #111a2b;
-    --surface: #1b2740;
-    --card: #2a3a5c;
-    --text: #eef3fb;
-    --muted: #a9b8d0;
-    --accent: #7fb2ff;
-    --outline: #7f93b3;
-    --on-accent: #111a2b;
-    --accent-soft: #34507e;
-    --focus: #eef3fb;
+    --bg: var(--onyx);
+    --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
+    --card: var(--navy);
+    --text: var(--white);
+    --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
+    --outline: color-mix(in srgb, var(--white) 50%, var(--onyx));
+    /* Navy is too close to onyx to carry buttons, so cyan is the primary here. */
+    --accent: var(--cyan);
+    --on-accent: var(--onyx);
+    --highlight: var(--plum);
+    --on-highlight: var(--onyx);
+    --focus: var(--white);
+    --avatar-a: var(--white);
+    --on-avatar-a: var(--onyx);
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #111a2b;
-  --surface: #1b2740;
-  --card: #2a3a5c;
-  --text: #eef3fb;
-  --muted: #a9b8d0;
-  --accent: #7fb2ff;
-  --outline: #7f93b3;
-  --on-accent: #111a2b;
-  --accent-soft: #34507e;
-  --focus: #eef3fb;
+  --bg: var(--onyx);
+  --surface: color-mix(in srgb, var(--navy) 50%, var(--onyx));
+  --card: var(--navy);
+  --text: var(--white);
+  --muted: color-mix(in srgb, var(--white) 72%, var(--onyx));
+  --outline: color-mix(in srgb, var(--white) 50%, var(--onyx));
+  /* Navy is too close to onyx to carry buttons, so cyan is the primary here. */
+  --accent: var(--cyan);
+  --on-accent: var(--onyx);
+  --highlight: var(--plum);
+  --on-highlight: var(--onyx);
+  --focus: var(--white);
+  --avatar-a: var(--white);
+  --on-avatar-a: var(--onyx);
 }

@@ -7,7 +7,8 @@ that supersedes the old one.
 | ADR                                  | Decision                                                             |
 | ------------------------------------ | -------------------------------------------------------------------- |
 | [0001](0001-react-vite-kith-npm.md)  | TypeScript + Vite + React, kith as npm tarball from a GitHub Release |
-| [0006](0006-sky-and-night-blue-themes.md) | Sky (light) and night-blue (dark) themes, no orange; supersedes the colours of 0003 |
+| [0007](0007-navy-cyan-plum-palette.md) | User-supplied palette: Oxford navy, Pacific cyan, plum, white, onyx; supersedes 0006 |
+| [0006](0006-sky-and-night-blue-themes.md) | Sky/night-blue themes (superseded by 0007) |
 | [0005](0005-pnpm.md) | pnpm instead of npm as package manager |
 | [0004](0004-biome-instead-of-eslint.md) | Biome instead of ESLint + Prettier (enables TypeScript 7) |
 | [0003](0003-flat-headspace-style.md) | Flat, Headspace-oriented visual style, no micro-movements            |

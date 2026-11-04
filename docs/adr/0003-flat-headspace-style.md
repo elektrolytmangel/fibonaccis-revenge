@@ -1,6 +1,6 @@
 # 0003: Flat, Headspace-oriented visual style
 
-- **Status:** accepted; colour decisions superseded by [ADR 0006](0006-sky-and-night-blue-themes.md) (flat, shape, type and motion still apply)
+- **Status:** accepted; colour decisions superseded by [ADR 0007](0007-navy-cyan-plum-palette.md) (flat, shape, type and motion still apply)
 - **Date:** 2026-11-04
 - **Requirements:** REQ-UI-001, REQ-UI-003, REQ-UI-005, REQ-UI-007
 
