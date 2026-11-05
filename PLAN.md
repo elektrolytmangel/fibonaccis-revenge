@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-05 (Azure Static Web Apps deploy workflow added)
+- **Last updated:** 2026-11-05 (deploy workflow takes the relay URL from `KITH_RELAY_URL`)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -35,7 +35,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 ### Not done
 
 - **No automated two-client test.** Sync was checked by hand with two Firefox contexts (create, join by link, vote, reveal, estimate, reset, reload) against a local relay; unit tests cover only the room document (`src/sync/roomDoc.test.ts`). The throwaway Playwright script lived outside the repo.
-- Web app hosting: Azure Static Web App (workflow `deploy-azure.yml`, needs secret `AZURE_STATIC_WEB_APPS_API_TOKEN`, set by the user; not yet run). Nothing is released; the kith relay host is still open.
+- Web app hosting: Azure Static Web App (workflow `deploy-azure.yml`, needs secret `AZURE_STATIC_WEB_APPS_API_TOKEN` and repository variable `KITH_RELAY_URL` (`wss://…`), both set by the user; not yet run). Nothing is released; the kith relay host is still open.
 
 ## Plan
 
@@ -117,3 +117,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-04**: Plan and status report refreshed.
 - **2026-11-05**: kith 0.1.0-alpha.3 integrated (`src/sync/`, ADR 0014); end-to-end checked by hand in two Firefox contexts. Next: automated two-client test, then user review.
 - **2026-11-05**: Azure Static Web Apps deploy workflow (`deploy-azure.yml`); user adds the deployment token secret.
+- **2026-11-05**: Deploy workflow passes `KITH_RELAY_URL` as `VITE_KITH_RELAY` and fails if it is not a `wss://` URL.

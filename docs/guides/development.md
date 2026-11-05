@@ -54,4 +54,6 @@ runs lint, typecheck, test and build once `package.json` exists. Each is a plain
 `.github/workflows/deploy-azure.yml` builds the app and uploads `dist/` to an
 Azure Static Web App on every push to `main` (and on manual dispatch). It needs
 the repository secret `AZURE_STATIC_WEB_APPS_API_TOKEN` (the Static Web App's
-deployment token). Without the secret the deploy job fails; CI is unaffected.
+deployment token) and the repository variable `KITH_RELAY_URL` (a `wss://` URL,
+built in as `VITE_KITH_RELAY`; the job fails early if it is missing or not `wss://`).
+Without them the deploy job fails; CI is unaffected.
