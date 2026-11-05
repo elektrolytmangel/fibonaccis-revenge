@@ -18,3 +18,4 @@
 - Reset button constant; flat disabled states.
 - Plan refreshed.
 - kith 0.1.0-alpha.3 integrated: rooms sync end-to-end encrypted through a relay; join by one-time invite link; rejoin after reload (ADR 0014).
+- Azure Static Web Apps deployment workflow (push to `main`, secret `AZURE_STATIC_WEB_APPS_API_TOKEN`).

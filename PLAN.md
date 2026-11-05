@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-05 (kith 0.1.0-alpha.3 integrated, checked by hand)
+- **Last updated:** 2026-11-05 (Azure Static Web Apps deploy workflow added)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -35,7 +35,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 ### Not done
 
 - **No automated two-client test.** Sync was checked by hand with two Firefox contexts (create, join by link, vote, reveal, estimate, reset, reload) against a local relay; unit tests cover only the room document (`src/sync/roomDoc.test.ts`). The throwaway Playwright script lived outside the repo.
-- Nothing is deployed or released; there is no hosting decision.
+- Web app hosting: Azure Static Web App (workflow `deploy-azure.yml`, needs secret `AZURE_STATIC_WEB_APPS_API_TOKEN`, set by the user; not yet run). Nothing is released; the kith relay host is still open.
 
 ## Plan
 
@@ -81,6 +81,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Room layout: title + invite, cards, actions, estimate row, participants (scrolls); fits the screen; app name in the room header | User | REQ-UI-009, 010 |
 | Reset is a constant, always enabled secondary button; disabled controls are flat (no opacity, cards unchanged after reveal) | User | REQ-UI-002 |
 | i18n de/en/pl without a library | Small app; `Intl.PluralRules` | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
+| Web app hosted on Azure Static Web Apps, deployed from `main` by GitHub Actions | User | `.github/workflows/deploy-azure.yml` |
 | Favicon: white Fibonacci spiral with a plum dot on navy | Agent design, user asked for "very nice" | `public/favicon.svg` |
 
 | kith 0.1.0-alpha.3 pinned; room = org, one JSON document, one-time invites, UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
@@ -115,3 +116,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-04**: New layout, estimate row, i18n de/en/pl, scrollable list, favicon (#19); constant Reset, flat disabled states (#20).
 - **2026-11-04**: Plan and status report refreshed.
 - **2026-11-05**: kith 0.1.0-alpha.3 integrated (`src/sync/`, ADR 0014); end-to-end checked by hand in two Firefox contexts. Next: automated two-client test, then user review.
+- **2026-11-05**: Azure Static Web Apps deploy workflow (`deploy-azure.yml`); user adds the deployment token secret.
