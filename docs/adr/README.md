@@ -7,6 +7,7 @@ that supersedes the old one.
 | ADR                                  | Decision                                                             |
 | ------------------------------------ | -------------------------------------------------------------------- |
 | [0001](0001-react-vite-kith-npm.md)  | TypeScript + Vite + React, kith as npm tarball from a GitHub Release |
+| [0014](0014-room-document-and-invites.md) | Room = kith org, one JSON document per room, one-time invites as join links |
 | [0013](0013-own-minimal-i18n.md) | Minimal in-house i18n (de, en, pl) |
 | [0012](0012-dark-cards-same-as-light.md) | Dark theme: inactive cards use the light theme's tint (supersedes 0010) |
 | [0011](0011-selected-card-colour-only.md) | Selected card marked by colour only |
@@ -22,6 +23,6 @@ that supersedes the old one.
 
 Open questions waiting for an ADR:
 
-- [ ] Room/vote data model on top of kith changes (hidden votes until reveal)
-- [ ] Participant identity and room admission (depends on kith invitations)
+- [x] Room/vote data model on top of kith changes: [ADR 0014](0014-room-document-and-invites.md)
+- [x] Participant identity and room admission: device identity, one-time invites ([ADR 0014](0014-room-document-and-invites.md))
 - [ ] Where the relay is hosted

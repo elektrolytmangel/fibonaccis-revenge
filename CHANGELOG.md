@@ -17,3 +17,4 @@
 - Room layout redone; estimate row (next Fibonacci above the average) replaces the result panel; German/English/Polish; scrollable participant list; SVG favicon.
 - Reset button constant; flat disabled states.
 - Plan refreshed.
+- kith 0.1.0-alpha.3 integrated: rooms sync end-to-end encrypted through a relay; join by one-time invite link; rejoin after reload (ADR 0014).

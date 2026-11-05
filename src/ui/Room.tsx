@@ -7,7 +7,7 @@ import { Estimate } from "./Estimate";
 import { Participants } from "./Participants";
 import { Settings } from "./Settings";
 
-export function Room({ room, link }: { room: RoomApi; link: string }) {
+export function Room({ room }: { room: RoomApi }) {
   const { state, me } = room;
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
@@ -21,9 +21,13 @@ export function Room({ room, link }: { room: RoomApi; link: string }) {
         <button
           type="button"
           className="btn btn--quiet"
-          onClick={() => {
-            void navigator.clipboard?.writeText(link);
-            setCopied(true);
+          onClick={async () => {
+            try {
+              await navigator.clipboard?.writeText(await room.createLink());
+              setCopied(true);
+            } catch {
+              setCopied(false);
+            }
           }}
         >
           {copied ? t("room.linkCopied") : t("room.copyLink")}

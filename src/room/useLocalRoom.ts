@@ -18,6 +18,8 @@ export interface RoomApi {
   vote(card: Card): void;
   reveal(): void;
   reset(): void;
+  /** A link that lets another person join this room (a kith room needs a fresh one per person). */
+  createLink(): Promise<string>;
   /** Development only: add a teammate who already voted, to try the UI alone. */
   addDemoTeammate?(): void;
 }
@@ -43,6 +45,7 @@ export function useLocalRoom(me: Participant): RoomApi {
     vote: (card) => dispatch({ type: "vote", id: me.id, card }),
     reveal: () => dispatch({ type: "reveal" }),
     reset: () => dispatch({ type: "reset" }),
+    createLink: async () => window.location.href,
     addDemoTeammate: import.meta.env.DEV ? addDemoTeammate : undefined,
   };
 }

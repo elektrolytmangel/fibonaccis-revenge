@@ -8,7 +8,7 @@ The app must be a TypeScript + Vite + React web app.
 
 ### REQ-PLAT-002: kith from release tarball
 
-- **Priority:** must | **Phase:** 2 | **Status:** accepted | **Verify:** review | **Source:** ADR 0001
+- **Priority:** must | **Phase:** 2 | **Status:** implemented | **Verify:** review | **Source:** ADR 0001
 
 kith must be consumed as the `kith-wasm` npm tarball of a pinned GitHub Release.
 
