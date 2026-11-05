@@ -48,3 +48,10 @@ online while someone joins. Unit tests and `pnpm test` use the in-memory local b
 `.github/workflows/ci.yml`: the `requirements` job always runs; the `web` job
 runs lint, typecheck, test and build once `package.json` exists. Each is a plain
 `pnpm` script, so you can run them locally.
+
+## Deployment
+
+`.github/workflows/deploy-azure.yml` builds the app and uploads `dist/` to an
+Azure Static Web App on every push to `main` (and on manual dispatch). It needs
+the repository secret `AZURE_STATIC_WEB_APPS_API_TOKEN` (the Static Web App's
+deployment token). Without the secret the deploy job fails; CI is unaffected.
