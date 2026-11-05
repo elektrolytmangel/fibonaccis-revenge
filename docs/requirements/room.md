@@ -14,6 +14,8 @@ A user must be able to join an existing room via a shareable link and choose a d
 
 UI done (link, name form). Joining a room that lives on another device needs kith (REQ-SYNC-001).
 
+Join links are one-time kith invites; the host must be online to admit (ADR 0014). Checked by hand.
+
 ### REQ-ROOM-003: Participant list
 
 - **Priority:** must | **Phase:** 1 | **Status:** partial | **Verify:** test | **Source:** design §Rooms
@@ -22,8 +24,12 @@ All participants must see who is in the room and who has voted (not what).
 
 UI done; other participants only appear with kith.
 
+Other participants appear through kith; checked by hand.
+
 ### REQ-ROOM-004: Rejoin keeps identity
 
-- **Priority:** should | **Phase:** 2 | **Status:** accepted | **Verify:** test | **Source:** design §Rooms
+- **Priority:** should | **Phase:** 2 | **Status:** partial | **Verify:** test | **Source:** design §Rooms
 
 A returning participant on the same device should keep their identity and the room state.
+
+The device identity and room data live in IndexedDB; a reload reopens the room. Checked by hand.

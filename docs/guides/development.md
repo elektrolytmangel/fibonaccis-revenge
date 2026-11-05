@@ -18,6 +18,22 @@ pnpm test
 python3 scripts/reqs.py --write     # after touching requirements or `req:` tags
 ```
 
+## Trying sync locally
+
+```sh
+# 1. relay (binary from the kith release; it listens on :8080 and has no flags)
+gh release download v0.1.0-alpha.3 -R elektrolytmangel/kith -p 'kith-relay-x86_64-unknown-linux-gnu.tar.gz'
+tar xzf kith-relay-*.tar.gz && ./kith-relay
+
+# 2. app (relay URL defaults to ws://localhost:8080/v1/ws; override with VITE_KITH_RELAY)
+pnpm dev
+```
+
+Create a room, click "Copy invite link" and open the link in a **different browser profile**
+(or private window): one browser profile owns a room's database, and the host has to stay
+online while someone joins. Unit tests and `pnpm test` use the in-memory local backend
+(`localBackend` in `src/ui/App.tsx`), not kith.
+
 ## Where code goes
 
 | Change                                          | Place                                         |

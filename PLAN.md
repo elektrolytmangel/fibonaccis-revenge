@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-04 (local UI complete, waiting for kith)
+- **Last updated:** 2026-11-05 (kith 0.1.0-alpha.3 integrated, checked by hand)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -17,8 +17,9 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | --- | --- |
 | Process | Modelled on kith: this plan as handover, requirements as code (`scripts/reqs.py`, traceability matrix), ADRs 0001-0013, issue/PR templates, CODEOWNERS, Dependabot, CI. The agent merges its own PRs when CI is green. |
 | Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 18 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
-| Local app (no sync yet) | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
+| Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
+| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.1.0-alpha.3 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
 | Requirements | 29 in `docs/requirements/`: 15 implemented, 6 partial, 8 accepted (see below). |
 
@@ -33,7 +34,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 ### Not done
 
-- **kith integration.** The library is not available yet (user, 2026-11-04: ready in 1-2 days). The UI talks only to `RoomApi` (`src/room/useLocalRoom.ts`); kith will provide the same interface.
+- **No automated two-client test.** Sync was checked by hand with two Firefox contexts (create, join by link, vote, reveal, estimate, reset, reload) against a local relay; unit tests cover only the room document (`src/sync/roomDoc.test.ts`). The throwaway Playwright script lived outside the repo.
 - Nothing is deployed or released; there is no hosting decision.
 
 ## Plan
@@ -41,20 +42,19 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 ### Next steps (in order)
 
 1. **User reviews the look** (`pnpm dev`) and the German/Polish texts (written by the agent, need a native check). Fix what they find.
-2. **Integrate kith** as soon as it is released:
-   1. Pin a kith tag; add the `kith-wasm` tarball as a dependency ([ADR 0001](docs/adr/0001-react-vite-kith-npm.md)).
-   2. ADR for the room/vote data model (see design doc §Voting and hidden votes): UI-only hiding vs commit-reveal.
-   3. Implement a kith-backed `RoomApi`; smoke test two browser tabs through a local relay (REQ-SYNC-001..004).
-   4. Join by link for real (REQ-ROOM-002/003), rejoin keeps identity (REQ-ROOM-004).
+2. **Test and harden the kith integration:**
+   1. Automated two-client test (real wasm + local relay, e.g. Playwright in CI) for REQ-SYNC-001/004, ROOM-002..004; then set those requirements to `implemented`.
+   2. Connection state in the UI (offline / reconnecting), host-offline message when joining times out, "room opened in another tab" message (kith allows one client per database).
+   3. Edge cases: rename after join, leaving participants (stale entries stay in the list), expired invite, Safari/Chrome check of IndexedDB + Web Locks.
 3. **Polish and hardening:** automated contrast check (REQ-UI-005), 360 px and cross-browser pass (REQ-UI-006, PLAT-003), PNG/apple-touch icon, mobile pass on the landing page.
 4. **Release/hosting** once the app works with kith (needs decisions below).
 
 ### Open questions for the user
 
-- Which kith version/tag to pin once released?
 - Where does the kith relay (and the web app) run for real use?
-- Anonymous joining by link, or invitations? (kith invitations/permissions are not implemented yet.)
-- Hidden votes: UI-only hiding, or commit-reveal (needs kith integration first)?
+- Joining needs the host online and every invite link is single use ("Copy invite link" makes a new one). Acceptable, or should a room get a permanent always-on member (kith-always-on) so it works without the host?
+- Participants who left stay in the list (no leave/timeout yet): remove by presence, by the host, or leave as is?
+- Hidden votes are UI-only for now (votes are in the shared, encrypted document). Commit-reveal later?
 - Card deck: fixed (0, 1, 2, 3, 5, 8, 13, 21, 42, ?) or configurable?
 - Should Reveal require at least one vote (current) and may anyone reveal/reset (current)?
 
@@ -83,8 +83,12 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | i18n de/en/pl without a library | Small app; `Intl.PluralRules` | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
 | Favicon: white Fibonacci spiral with a plum dot on navy | Agent design, user asked for "very nice" | `public/favicon.svg` |
 
+| kith 0.1.0-alpha.3 pinned; room = org, one JSON document, one-time invites, UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
+
 ## Pitfalls already hit
 
+- **kith wasm must be initialised before any static call** (`KithClient.parseInvite` threw "wasm is undefined"): `await ensureWasm()` first. `createDocument` uses "the only org": hence one client/database per room.
+- **Playwright/Chromium are not installed on the dev machine.** For a two-client check install `playwright` + `npx playwright install firefox` in a scratch dir; Firefox has no clipboard read, so stub `navigator.clipboard.writeText` to capture the invite link. The relay binary has no flags (starts on :8080 at once).
 - **`typescript-eslint` does not support TypeScript 7**: hence Biome. Don't reintroduce ESLint until it does.
 - **Biome must not format Markdown** (reflows the generated TRACEABILITY tables); `biome.json` limits it to code. Prettier once split the labels of a YAML dropdown; check YAML after formatting.
 - **pnpm 12 rejects packages younger than 1 day** (`minimumReleaseAge`), also from the lockfile: `pnpm install --frozen-lockfile` failed in CI on a same-day Biome release. Pin the previous release and keep the policy. Dependabot PRs for brand-new releases may need a day.
@@ -109,4 +113,5 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-04**: Theme iterations, ending on the user's palette (#11 sky/night, #12 navy/cyan/plum, #13 white dark cards, #14 Sky Surge, #16 Sky Surge cards, #18 light-tint cards; espresso PR #10 closed). ADRs 0006-0012.
 - **2026-11-04**: Room header with app name, no rounds, 42 instead of coffee (#15); selected card without text (#17).
 - **2026-11-04**: New layout, estimate row, i18n de/en/pl, scrollable list, favicon (#19); constant Reset, flat disabled states (#20).
-- **2026-11-04**: Plan and status report refreshed. Next: user review, then kith.
+- **2026-11-04**: Plan and status report refreshed.
+- **2026-11-05**: kith 0.1.0-alpha.3 integrated (`src/sync/`, ADR 0014); end-to-end checked by hand in two Firefox contexts. Next: automated two-client test, then user review.
