@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-05 (deploy workflow takes the relay URL from `KITH_RELAY_URL`)
+- **Last updated:** 2026-11-08 (kith upgraded to 0.2.0-beta.1)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -19,7 +19,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 18 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
 | Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
-| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.1.0-alpha.3 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
+| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.1 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
 | Requirements | 29 in `docs/requirements/`: 15 implemented, 6 partial, 8 accepted (see below). |
 
@@ -84,7 +84,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Web app hosted on Azure Static Web Apps, deployed from `main` by GitHub Actions | User | `.github/workflows/deploy-azure.yml` |
 | Favicon: white Fibonacci spiral with a plum dot on navy | Agent design, user asked for "very nice" | `public/favicon.svg` |
 
-| kith 0.1.0-alpha.3 pinned; room = org, one JSON document, one-time invites, UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
+| kith 0.2.0-beta.1 pinned (was alpha.3); room = org, one JSON document, one-time invites, UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
 
 ## Pitfalls already hit
 
@@ -118,3 +118,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-05**: kith 0.1.0-alpha.3 integrated (`src/sync/`, ADR 0014); end-to-end checked by hand in two Firefox contexts. Next: automated two-client test, then user review.
 - **2026-11-05**: Azure Static Web Apps deploy workflow (`deploy-azure.yml`); user adds the deployment token secret.
 - **2026-11-05**: Deploy workflow passes `KITH_RELAY_URL` as `VITE_KITH_RELAY` and fails if it is not a `wss://` URL.
+- **2026-11-08**: kith bumped to 0.2.0-beta.1 (tarball URL only; lint, typecheck, 22 tests, build pass). Not re-checked by hand with two clients/relay beta: the sync notes in `docs/requirements/sync.md` still describe the alpha.3 check. Do that with the automated two-client test (next steps, 2.1).
