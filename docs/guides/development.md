@@ -22,7 +22,7 @@ python3 scripts/reqs.py --write     # after touching requirements or `req:` tags
 
 ```sh
 # 1. relay (binary from the kith release; it listens on :8080 and has no flags)
-gh release download v0.1.0-alpha.3 -R elektrolytmangel/kith -p 'kith-relay-x86_64-unknown-linux-gnu.tar.gz'
+gh release download v0.2.0-beta.1 -R elektrolytmangel/kith -p 'kith-relay-x86_64-unknown-linux-gnu.tar.gz'
 tar xzf kith-relay-*.tar.gz && ./kith-relay
 
 # 2. app (relay URL defaults to ws://localhost:8080/v1/ws; override with VITE_KITH_RELAY)

@@ -6,7 +6,7 @@
 
 ## Context
 
-kith 0.1.0-alpha.3 (`@elektrolytmangel/kith-wasm`) gives a group per org (MLS, end-to-end
+kith 0.2.0-beta.1 (`@elektrolytmangel/kith-wasm`) gives a group per org (MLS, end-to-end
 encrypted), JSON documents whose key-wise merge patches (RFC 7396) never conflict,
 IndexedDB persistence with a device key, and one-time invite links that an admin device
 must accept while online.
@@ -23,9 +23,9 @@ must accept while online.
 ## Consequences
 
 - The room is only as available as its members: joining needs the creator online; state needs one online member.
-- Anyone with a link can join and vote under any name; there is no admission step beyond the invite. Acceptable for estimation data and kith alpha.
+- Anyone with a link can join and vote under any name; there is no admission step beyond the invite. Acceptable for estimation data and kith beta.
 - A browser that loses its IndexedDB loses the room identity (a new invite is needed).
-- Moving to kith's next releases may change the wire format (alpha); upgrades are a deliberate version bump of the tarball URL.
+- Moving to kith's next releases may change the wire format (pre-1.0); upgrades are a deliberate version bump of the tarball URL.
 
 ## Alternatives considered
 
