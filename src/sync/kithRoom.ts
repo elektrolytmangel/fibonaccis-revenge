@@ -7,7 +7,9 @@ import { NEW_ROOM_DOC, parseRoomDoc, patch, type RoomDoc, toRoomState } from "./
 export const DEFAULT_RELAY: string = import.meta.env.VITE_KITH_RELAY ?? "ws://localhost:8080/v1/ws";
 
 const DOC_TYPE = "poker-room";
-const INVITE_TTL_SECONDS = 60 * 60;
+/** One join link serves a whole team: up to this many devices, for this long (kith multi-use invite). */
+const INVITE_TTL_SECONDS = 24 * 60 * 60;
+const INVITE_MAX_USES = 20;
 const JOIN_TIMEOUT_MS = 2 * 60 * 1000;
 const SESSION_PREFIX = "fr.room.";
 
@@ -196,9 +198,14 @@ export class KithRoom {
     this.edit(patch.reset(this.doc.round));
   }
 
-  /** A fresh one-time invite link for another person (this device must be an admin). */
+  /** A fresh multi-use invite link for several people (this device must be an admin). */
   createLink(base = `${location.origin}${location.pathname}`): string {
-    const invite = this.client.createInvite(this.org, this.session.relay, INVITE_TTL_SECONDS);
+    const invite = this.client.createMultiInvite(
+      this.org,
+      this.session.relay,
+      INVITE_TTL_SECONDS,
+      INVITE_MAX_USES,
+    );
     return `${base}#/join/${encodeURIComponent(invite)}`;
   }
 

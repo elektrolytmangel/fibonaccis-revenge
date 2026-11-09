@@ -14,7 +14,7 @@ A user must be able to join an existing room via a shareable link and choose a d
 
 UI done (link, name form). Joining a room that lives on another device needs kith (REQ-SYNC-001).
 
-Join links are one-time kith invites; the host must be online to admit (ADR 0014). Checked by hand.
+Join links are multi-use kith invites (24 h, up to 20 devices, so one link can go to the whole team); the host must be online to admit (ADR 0014). Checked by hand.
 
 ### REQ-ROOM-003: Participant list
 

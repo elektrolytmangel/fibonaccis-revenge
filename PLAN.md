@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-09 (invite share/copy)
+- **Last updated:** 2026-11-09 (kith beta.3 multi-use invites)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -19,7 +19,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 18 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
 | Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
-| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.2 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
+| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.3 as release tarball. Room = kith org, one JSON document per room, multi-use invite links (24 h, 20 devices), auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
 | Room layout | User picked option B (2026-11-09): one-line header + "⋯" menu (invite, your rooms, leave, theme, language; no footer), then user feedback: whole page scrolls, nothing pinned, same stacked order on desktop and phone (cards, actions, estimate, participants), menu items as buttons (language on its own row, closes on outside tap), invite link: copy on desktop ("Link copied" for 2 s), system share sheet on touch devices with `navigator.share`, "Show invite link" / automatic fallback field (REQ-ROOM-008; copy chain ClipboardItem promise, writeText, execCommand). REQ-UI-009/010 revised. Checked in Firefox only; **copy/share not verified in real Chrome or on a real iPhone/Android** (no Chromium on the dev machine; cause of the earlier Chrome failure unknown, plain-http origins have no `navigator.clipboard`, now covered by the execCommand fallback). |
 | Rooms | Optional room name (in the room document), list of joined rooms on the landing page (from localStorage sessions), "Your rooms" and "Leave room" (confirm, removes own player entry, frees client, deletes session/device key/IndexedDB) in the room footer. |
@@ -55,7 +55,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 
 - Where does the kith relay (and the web app) run for real use?
-- Joining needs the host online and every invite link is single use ("Copy invite link" makes a new one). Acceptable, or should a room get a permanent always-on member (kith-always-on) so it works without the host?
+- Joining needs the host online and the invite link is multi-use (24 h, 20 devices) but only works while the host is online. Acceptable, or should a room get a permanent always-on member (kith-always-on) so it works without the host?
 - Participants who close the tab without "Leave room" stay in the list: remove by presence/timeout, by the host, or leave as is?
 - Hidden votes are UI-only for now (votes are in the shared, encrypted document). Commit-reveal later?
 - Card deck: fixed (0, 1, 2, 3, 5, 8, 13, 21, 42, ?) or configurable?
@@ -87,7 +87,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Web app hosted on Azure Static Web Apps, deployed from `main` by GitHub Actions | User | `.github/workflows/deploy-azure.yml` |
 | Favicon: white Fibonacci spiral with a plum dot on navy | Agent design, user asked for "very nice" | `public/favicon.svg` |
 
-| kith 0.2.0-beta.1 pinned (was alpha.3); room = org, one JSON document, one-time invites, UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
+| kith 0.2.0-beta.3 pinned; room = org, one JSON document, multi-use invites (24 h, 20 uses: agent choice, change `INVITE_*` in `kithRoom.ts`), UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
 
 ## Pitfalls already hit
 
@@ -126,3 +126,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-09**: Room layout option B implemented (header menu, page scroll, pinned dock, desktop two columns).
 - **2026-11-09**: Menu/layout feedback: stacked layout on all sizes, nothing pinned, menu restyled and closes outside, iPhone copy fix.
 - **2026-11-09**: Invite link: desktop copy with 2 s feedback, mobile share sheet, manual-copy fallback (REQ-ROOM-008, 30 tests). User to verify on Chrome and iPhone/Android.
+- **2026-11-09**: kith bumped to 0.2.0-beta.3; join link is a multi-use invite (`createMultiInvite`, 24 h, 20 devices). Not yet checked by hand with 3+ clients against the beta.3 relay.
