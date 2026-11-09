@@ -68,14 +68,17 @@ sync, keys or relays in the normal flow.
 
 ### REQ-UI-009: Room layout
 
-- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** user (2026-11-04)
+- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** user (2026-11-04, revised 2026-11-09)
 
-The room must show, top to bottom: title with invite link; the cards to choose from; the actions (reveal, reset);
-the estimate row (REQ-VOTE-004); the participant list. Settings (theme, language) sit in a footer.
+The room must show, in reading order: a one-line header (room name, truncated, and a menu button); the cards; the actions
+(reveal, reset); the estimate row (REQ-VOTE-004); the participant list. Invite link, own rooms, leave, theme and language
+sit in the header menu, not in a footer. On wide screens the cards, actions and estimate form the left column and the
+participants the right one.
 
-### REQ-UI-010: Fits the screen
+### REQ-UI-010: Cards stay in reach
 
-- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** manual | **Source:** user (2026-11-04)
+- **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** manual | **Source:** user (2026-11-04, revised 2026-11-09)
 
-The room must fit the viewport height without page scrolling. When the participant list is long, only the list
-scrolls; the cards, actions and estimate row stay in view. Cards stay in two rows of five on phones.
+The room page scrolls as a whole; there is no separate scroll area for the participant list. On phones the cards, actions
+and estimate row are pinned to the bottom of the screen so they stay in view while the list scrolls. Cards stay in two
+rows of five on phones.

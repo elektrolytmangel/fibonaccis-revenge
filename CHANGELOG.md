@@ -23,3 +23,4 @@
 - kith upgraded to 0.2.0-beta.1 (no code changes needed).
 - kith upgraded to 0.2.0-beta.2.
 - Rooms: optional name (REQ-ROOM-005), list of joined rooms on the landing page and "Your rooms" in a room (REQ-ROOM-006), leave a room (REQ-ROOM-007).
+- Room layout (option B): one-line header with a menu (invite, rooms, leave, theme, language) replaces the footer; the page scrolls, cards/actions/estimate pinned at the bottom on phones, two columns on desktop; compact estimate row.

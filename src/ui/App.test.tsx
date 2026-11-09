@@ -44,6 +44,7 @@ describe("app", () => {
   it("leaves a room after confirmation and returns to the landing page", async () => {
     const confirm = vi.spyOn(window, "confirm").mockReturnValue(true);
     const user = await startRoom();
+    await user.click(screen.getByRole("button", { name: "Menu" }));
     await user.click(screen.getByRole("button", { name: "Leave room" }));
     expect(confirm).toHaveBeenCalled();
     expect(await screen.findByRole("button", { name: /create room/i })).toBeInTheDocument();

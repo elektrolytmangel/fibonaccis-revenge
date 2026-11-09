@@ -35,6 +35,7 @@ const en = {
   "room.leave": "Leave room",
   "room.leaveConfirm": "Leave this room? You can only come back with a new invite link.",
   "room.myRooms": "Your rooms",
+  "room.menu": "Menu",
   "settings.theme": "Theme",
   "settings.theme.system": "System",
   "settings.theme.light": "Light",
@@ -81,6 +82,7 @@ const de: Messages = {
   "room.leaveConfirm":
     "Diesen Raum verlassen? Du kommst nur mit einem neuen Einladungslink zurück.",
   "room.myRooms": "Deine Räume",
+  "room.menu": "Menü",
   "settings.theme": "Design",
   "settings.theme.system": "System",
   "settings.theme.light": "Hell",
@@ -125,6 +127,7 @@ const pl: Messages = {
   "room.leave": "Opuść pokój",
   "room.leaveConfirm": "Opuścić ten pokój? Wrócisz tylko z nowym linkiem zaproszenia.",
   "room.myRooms": "Twoje pokoje",
+  "room.menu": "Menu",
   "settings.theme": "Motyw",
   "settings.theme.system": "Systemowy",
   "settings.theme.light": "Jasny",
