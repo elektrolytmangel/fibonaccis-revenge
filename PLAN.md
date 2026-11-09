@@ -52,6 +52,8 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 ### Open questions for the user
 
+- **Room layout on mobile (user feedback 2026-11-09):** room name and footer wrap to several lines, the participant list is the only scroller, view is cramped, estimate row is large. Three options proposed in chat: **A** slim header + "⋯" menu + estimate inline with the actions; **B** page scrolls, deck/actions sticky at the bottom, desktop two columns; **C** participants as compact 2-column grid, estimate replaces the hint line. Agent recommends B with A's menu. Waiting for the user's pick. Dropping the estimate row would change REQ-VOTE-004.
+
 - Where does the kith relay (and the web app) run for real use?
 - Joining needs the host online and every invite link is single use ("Copy invite link" makes a new one). Acceptable, or should a room get a permanent always-on member (kith-always-on) so it works without the host?
 - Participants who close the tab without "Leave room" stay in the list: remove by presence/timeout, by the host, or leave as is?
