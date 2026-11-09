@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-09 (room layout option B)
+- **Last updated:** 2026-11-09 (menu and stacked layout feedback)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -21,7 +21,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
 | Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.2 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
-| Room layout | User picked option B (2026-11-09): one-line header + "⋯" menu (invite, your rooms, leave, theme, language; no footer), page scrolls, deck/actions/estimate pinned at the bottom on phones, two columns ≥900 px; estimate stays as a compact row. REQ-UI-009/010 revised. Checked in Firefox at 390 and 1100 px (light) only, not by the user yet. |
+| Room layout | User picked option B (2026-11-09): one-line header + "⋯" menu (invite, your rooms, leave, theme, language; no footer), then user feedback: whole page scrolls, nothing pinned, same stacked order on desktop and phone (cards, actions, estimate, participants), menu items as buttons (language on its own row, closes on outside tap), iPhone-safe invite copy (ClipboardItem with promise, fallback shows the link). REQ-UI-009/010 revised. Checked in Firefox only, not on a real iPhone. |
 | Rooms | Optional room name (in the room document), list of joined rooms on the landing page (from localStorage sessions), "Your rooms" and "Leave room" (confirm, removes own player entry, frees client, deletes session/device key/IndexedDB) in the room footer. |
 | Requirements | 32 in `docs/requirements/`: 18 implemented, 6 partial, 8 accepted (see below). ROOM-005..007 are new, from the user's request of 2026-11-09. |
 
@@ -81,7 +81,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Selected card: colour only (lightness contrast ≥ 3:1 + `aria-pressed`), no "Your pick" text | User: "the colour is enough" | [ADR 0011](docs/adr/0011-selected-card-colour-only.md) |
 | Deck 0, 1, 2, 3, 5, 8, 13, 21, 42, ? (no coffee); no round counter, only Reset | User | REQ-VOTE-002, 005 |
 | Estimate = smallest Fibonacci number ≥ average of numeric votes; no distribution/average/consensus UI; row always present, empty until reveal | User | REQ-VOTE-004 |
-| Room layout: title + invite, cards, actions, estimate row, participants (scrolls); fits the screen; app name in the room header | User | REQ-UI-009, 010 |
+| Room layout: one-line header + menu, cards, actions, estimate row, participants; whole page scrolls, stacked on all sizes | User (revised 2026-11-09) | REQ-UI-009, 010 |
 | Reset is a constant, always enabled secondary button; disabled controls are flat (no opacity, cards unchanged after reveal) | User | REQ-UI-002 |
 | i18n de/en/pl without a library | Small app; `Intl.PluralRules` | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
 | Web app hosted on Azure Static Web Apps, deployed from `main` by GitHub Actions | User | `.github/workflows/deploy-azure.yml` |
@@ -124,3 +124,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-08**: kith bumped to 0.2.0-beta.1 (tarball URL only; lint, typecheck, 22 tests, build pass). Not re-checked by hand with two clients/relay beta: the sync notes in `docs/requirements/sync.md` still describe the alpha.3 check. Do that with the automated two-client test (next steps, 2.1).
 - **2026-11-09**: kith bumped to 0.2.0-beta.2. Room names, list of joined rooms, leave room (REQ-ROOM-005..007); 26 tests pass. Leave/list/name not yet checked by hand against a relay with two clients.
 - **2026-11-09**: Room layout option B implemented (header menu, page scroll, pinned dock, desktop two columns).
+- **2026-11-09**: Menu/layout feedback: stacked layout on all sizes, nothing pinned, menu restyled and closes outside, iPhone copy fix.

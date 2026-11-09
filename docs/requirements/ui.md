@@ -70,15 +70,13 @@ sync, keys or relays in the normal flow.
 
 - **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** test | **Source:** user (2026-11-04, revised 2026-11-09)
 
-The room must show, in reading order: a one-line header (room name, truncated, and a menu button); the cards; the actions
-(reveal, reset); the estimate row (REQ-VOTE-004); the participant list. Invite link, own rooms, leave, theme and language
-sit in the header menu, not in a footer. On wide screens the cards, actions and estimate form the left column and the
-participants the right one.
+The room must show, top to bottom on every screen size: a one-line header (room name, truncated, and a menu button);
+the cards; the actions (reveal, reset); the estimate row (REQ-VOTE-004); the participant list. Invite link, own rooms,
+leave, theme and language sit in the header menu, not in a footer. The menu closes on a tap outside and on Escape.
 
-### REQ-UI-010: Cards stay in reach
+### REQ-UI-010: Page scrolls as a whole
 
 - **Priority:** must | **Phase:** 1 | **Status:** implemented | **Verify:** manual | **Source:** user (2026-11-04, revised 2026-11-09)
 
-The room page scrolls as a whole; there is no separate scroll area for the participant list. On phones the cards, actions
-and estimate row are pinned to the bottom of the screen so they stay in view while the list scrolls. Cards stay in two
-rows of five on phones.
+The room page scrolls as a whole; there is no separate scroll area and nothing is pinned. There is clear space between
+the cards/actions and the estimate/participants. Cards stay in two rows of five on phones.

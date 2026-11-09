@@ -32,7 +32,7 @@
 | [REQ-UI-007](ui.md#req-ui-007-no-micro-movements) | No micro-movements | must | 1 | implemented | review | — | — |
 | [REQ-UI-008](ui.md#req-ui-008-friendly-microcopy) | Friendly microcopy | should | 1 | implemented | review | `src/ui/App.test.tsx` | — |
 | [REQ-UI-009](ui.md#req-ui-009-room-layout) | Room layout | must | 1 | implemented | test | `src/ui/App.test.tsx` | — |
-| [REQ-UI-010](ui.md#req-ui-010-cards-stay-in-reach) | Cards stay in reach | must | 1 | implemented | manual | — | — |
+| [REQ-UI-010](ui.md#req-ui-010-page-scrolls-as-a-whole) | Page scrolls as a whole | must | 1 | implemented | manual | — | — |
 | [REQ-VOTE-001](voting.md#req-vote-001-votes-hidden-until-reveal) | Votes hidden until reveal | must | 1 | implemented | test | `src/ui/App.test.tsx` | — |
 | [REQ-VOTE-002](voting.md#req-vote-002-fibonacci-deck) | Fibonacci deck | must | 1 | implemented | test | `src/domain/poker.test.ts` | — |
 | [REQ-VOTE-003](voting.md#req-vote-003-reveal) | Reveal | must | 1 | implemented | test | `src/domain/poker.test.ts` | — |
