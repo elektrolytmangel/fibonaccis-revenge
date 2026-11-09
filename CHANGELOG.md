@@ -21,3 +21,5 @@
 - Azure Static Web Apps deployment workflow (push to `main`, secret `AZURE_STATIC_WEB_APPS_API_TOKEN`).
 - Deploy workflow builds with the relay URL from repository variable `KITH_RELAY_URL` (must be `wss://`).
 - kith upgraded to 0.2.0-beta.1 (no code changes needed).
+- kith upgraded to 0.2.0-beta.2.
+- Rooms: optional name (REQ-ROOM-005), list of joined rooms on the landing page and "Your rooms" in a room (REQ-ROOM-006), leave a room (REQ-ROOM-007).

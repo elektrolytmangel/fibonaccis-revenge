@@ -313,3 +313,22 @@ body {
   font: inherit;
   font-size: var(--text-sm);
 }
+
+.room-name {
+  font-weight: 600;
+}
+
+.rooms {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rooms a {
+  display: block;
+  padding: var(--space-2) 0;
+  color: inherit;
+  font-weight: 700;
+}

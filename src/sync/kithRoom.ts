@@ -1,5 +1,5 @@
 import init, { generateSecretKey, KithClient } from "@elektrolytmangel/kith-wasm";
-import { loadOrCreateDeviceKey } from "@elektrolytmangel/kith-wasm/kith-web.js";
+import { deleteDeviceKey, loadOrCreateDeviceKey } from "@elektrolytmangel/kith-wasm/kith-web.js";
 import type { Card, RoomState } from "../domain/poker";
 import { NEW_ROOM_DOC, parseRoomDoc, patch, type RoomDoc, toRoomState } from "./roomDoc";
 
@@ -16,6 +16,15 @@ interface Session {
   db: string;
   name: string;
   relay: string;
+  /** Room name, kept for the list of joined rooms. */
+  title?: string;
+  /** When the room was joined (ms), to order the list. */
+  at?: number;
+}
+
+export interface RoomSummary {
+  id: string;
+  title?: string;
 }
 
 function readSession(org: string): Session | null {
@@ -33,6 +42,22 @@ function saveSession(org: string, s: Session): void {
   } catch {
     /* the room still works, but a reload cannot rejoin it */
   }
+}
+
+/** Rooms this browser has joined, newest first. */
+export function joinedRooms(): RoomSummary[] {
+  const out: (RoomSummary & { at: number })[] = [];
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key?.startsWith(SESSION_PREFIX)) continue;
+      const s = readSession(key.slice(SESSION_PREFIX.length));
+      if (s) out.push({ id: key.slice(SESSION_PREFIX.length), title: s.title, at: s.at ?? 0 });
+    }
+  } catch {
+    /* no storage: no list */
+  }
+  return out.sort((a, b) => b.at - a.at).map(({ id, title }) => ({ id, title }));
 }
 
 /** Does this browser already know the room (so reopening it needs no name)? */
@@ -66,6 +91,7 @@ export class KithRoom {
   private connected = false;
   private lastCatchUp = 0;
   private onJoined: (() => void) | null = null;
+  private closed = false;
 
   private constructor(
     private readonly client: KithClient,
@@ -76,12 +102,25 @@ export class KithRoom {
   }
 
   /** Create a room: a new org (this device is its admin) with an empty room document. */
-  static async create(name: string, relay = DEFAULT_RELAY): Promise<KithRoom> {
+  static async create(
+    name: string,
+    title: string | undefined,
+    relay = DEFAULT_RELAY,
+  ): Promise<KithRoom> {
     const db = newDbName();
     const client = await openClient(db);
     const org = client.createOrg();
-    client.createDocument(DOC_TYPE, JSON.stringify(NEW_ROOM_DOC));
-    const room = new KithRoom(client, org, { db, name, relay });
+    client.createDocument(
+      DOC_TYPE,
+      JSON.stringify({ ...NEW_ROOM_DOC, title: title?.trim() || undefined }),
+    );
+    const room = new KithRoom(client, org, {
+      db,
+      name,
+      relay,
+      title: title?.trim() || undefined,
+      at: Date.now(),
+    });
     saveSession(org, room.session);
     room.start();
     return room;
@@ -98,7 +137,7 @@ export class KithRoom {
     if (existing) return KithRoom.open(org);
     const db = newDbName();
     const client = await openClient(db);
-    const room = new KithRoom(client, org, { db, name, relay });
+    const room = new KithRoom(client, org, { db, name, relay, at: Date.now() });
     const joined = new Promise<void>((resolve, reject) => {
       const timer = setTimeout(
         () => reject(new Error("The host did not admit you in time.")),
@@ -163,14 +202,44 @@ export class KithRoom {
     return `${base}#/join/${encodeURIComponent(invite)}`;
   }
 
+  /**
+   * Leave for good: remove this device from the participant list, close the client and forget
+   * the room (session, device key, database) on this device. Rejoining needs a new invite.
+   */
+  async leave(): Promise<void> {
+    const id = this.docId();
+    if (id) {
+      try {
+        this.client.updateDocument(id, JSON.stringify(patch.leave(this.me)));
+      } catch {
+        /* offline or closed: the entry stays until someone else removes it */
+      }
+    }
+    // Give the removal a moment to reach the relay before the connection closes.
+    await new Promise((r) => setTimeout(r, 400));
+    this.listeners.clear();
+    this.stop();
+    this.closed = true;
+    this.client.free();
+    try {
+      localStorage.removeItem(SESSION_PREFIX + this.org);
+    } catch {
+      /* ignore */
+    }
+    await deleteDeviceKey(this.session.db).catch(() => {});
+    indexedDB.deleteDatabase(this.session.db);
+  }
+
   /** Connect (idempotent). */
   start(): void {
+    if (this.closed) return;
     if (!this.connected) this.connect();
     this.refresh();
   }
 
   /** Disconnect; the stored data stays. */
   stop(): void {
+    if (this.closed) return;
     this.client.disconnect();
     this.connected = false;
   }
@@ -206,6 +275,10 @@ export class KithRoom {
         JSON.stringify(patch.join(this.me, this.session.name, mine?.joined ?? Date.now())),
       );
       this.doc = parseRoomDoc(this.client.documentJson(id));
+    }
+    if (this.doc.title !== this.session.title) {
+      this.session.title = this.doc.title;
+      saveSession(this.org, this.session);
     }
     this.state = toRoomState(this.doc);
     for (const l of this.listeners) l();

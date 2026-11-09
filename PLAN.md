@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-08 (kith upgraded to 0.2.0-beta.1)
+- **Last updated:** 2026-11-09 (kith 0.2.0-beta.2; room names, joined-rooms list, leave)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -19,13 +19,14 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 18 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
 | Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
-| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.1 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
+| Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.2 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
-| Requirements | 29 in `docs/requirements/`: 15 implemented, 6 partial, 8 accepted (see below). |
+| Rooms | Optional room name (in the room document), list of joined rooms on the landing page (from localStorage sessions), "Your rooms" and "Leave room" (confirm, removes own player entry, frees client, deletes session/device key/IndexedDB) in the room footer. |
+| Requirements | 32 in `docs/requirements/`: 18 implemented, 6 partial, 8 accepted (see below). ROOM-005..007 are new, from the user's request of 2026-11-09. |
 
 ### Requirement status (all accepted by the user; none are `proposed`)
 
-- **Implemented (15):** ROOM-001, VOTE-001..005, UI-002, 003, 007..010, LANG-001, 002, PLAT-004.
+- **Implemented (18):** ROOM-001, ROOM-005..007, VOTE-001..005, UI-002, 003, 007..010, LANG-001, 002, PLAT-004.
 - **Partial (6):**
   - ROOM-002 (join by link) and ROOM-003 (participant list): UI done, other participants only exist with kith.
   - UI-001 (look), UI-004 (themes), UI-006 (phone first): need the user's visual check. The agent checked Firefox at 390 px and 1100 px, light and dark, de and pl, not 360 px and not Chrome/Safari.
@@ -45,7 +46,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 2. **Test and harden the kith integration:**
    1. Automated two-client test (real wasm + local relay, e.g. Playwright in CI) for REQ-SYNC-001/004, ROOM-002..004; then set those requirements to `implemented`.
    2. Connection state in the UI (offline / reconnecting), host-offline message when joining times out, "room opened in another tab" message (kith allows one client per database).
-   3. Edge cases: rename after join, leaving participants (stale entries stay in the list), expired invite, Safari/Chrome check of IndexedDB + Web Locks.
+   3. Edge cases: rename after join, participants who close the tab without leaving (stale entries stay in the list), leaving while offline (the removal may not reach others; not hand-tested with two clients), expired invite, Safari/Chrome check of IndexedDB + Web Locks.
 3. **Polish and hardening:** automated contrast check (REQ-UI-005), 360 px and cross-browser pass (REQ-UI-006, PLAT-003), PNG/apple-touch icon, mobile pass on the landing page.
 4. **Release/hosting** once the app works with kith (needs decisions below).
 
@@ -53,7 +54,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 - Where does the kith relay (and the web app) run for real use?
 - Joining needs the host online and every invite link is single use ("Copy invite link" makes a new one). Acceptable, or should a room get a permanent always-on member (kith-always-on) so it works without the host?
-- Participants who left stay in the list (no leave/timeout yet): remove by presence, by the host, or leave as is?
+- Participants who close the tab without "Leave room" stay in the list: remove by presence/timeout, by the host, or leave as is?
 - Hidden votes are UI-only for now (votes are in the shared, encrypted document). Commit-reveal later?
 - Card deck: fixed (0, 1, 2, 3, 5, 8, 13, 21, 42, ?) or configurable?
 - Should Reveal require at least one vote (current) and may anyone reveal/reset (current)?
@@ -119,3 +120,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-05**: Azure Static Web Apps deploy workflow (`deploy-azure.yml`); user adds the deployment token secret.
 - **2026-11-05**: Deploy workflow passes `KITH_RELAY_URL` as `VITE_KITH_RELAY` and fails if it is not a `wss://` URL.
 - **2026-11-08**: kith bumped to 0.2.0-beta.1 (tarball URL only; lint, typecheck, 22 tests, build pass). Not re-checked by hand with two clients/relay beta: the sync notes in `docs/requirements/sync.md` still describe the alpha.3 check. Do that with the automated two-client test (next steps, 2.1).
+- **2026-11-09**: kith bumped to 0.2.0-beta.2. Room names, list of joined rooms, leave room (REQ-ROOM-005..007); 26 tests pass. Leave/list/name not yet checked by hand against a relay with two clients.

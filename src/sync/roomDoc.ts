@@ -7,6 +7,8 @@ import { type Card, DECK, type RoomState } from "../domain/poker";
  * was cast in the current `round`, and the votes are shown when `revealedRound` equals it.
  */
 export interface RoomDoc {
+  /** Optional room name, set by the creator. */
+  title?: string;
   round: number;
   revealedRound: number;
   players: Record<string, PlayerDoc>;
@@ -45,7 +47,9 @@ export function parseRoomDoc(json: string): RoomDoc {
       round: typeof q.round === "number" ? q.round : undefined,
     };
   }
+  const title = typeof o.title === "string" ? o.title.trim().slice(0, 40) : "";
   return {
+    title: title || undefined,
     round: typeof o.round === "number" ? o.round : 1,
     revealedRound: typeof o.revealedRound === "number" ? o.revealedRound : 0,
     players,
@@ -61,6 +65,7 @@ export function toRoomState(doc: RoomDoc): RoomState {
     if (p.vote !== undefined && p.round === doc.round) votes[id] = p.vote;
   }
   return {
+    title: doc.title,
     participants: entries.map(([id, p]) => ({ id, name: p.name })),
     votes,
     revealed: doc.revealedRound === doc.round,
@@ -69,6 +74,7 @@ export function toRoomState(doc: RoomDoc): RoomState {
 
 /** JSON merge patches (RFC 7396) for the actions of a room. */
 export const patch = {
+  leave: (id: string) => ({ players: { [id]: null } }),
   join: (id: string, name: string, now: number) => ({ players: { [id]: { name, joined: now } } }),
   vote: (id: string, card: Card, round: number) => ({ players: { [id]: { vote: card, round } } }),
   reveal: (round: number) => ({ revealedRound: round }),

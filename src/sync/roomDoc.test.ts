@@ -67,4 +67,25 @@ describe("room document", () => {
     expect(doc.players.a.vote).toBeUndefined();
     expect(parseRoomDoc("not json")).toEqual(NEW_ROOM_DOC);
   });
+
+  // req: REQ-ROOM-005
+  it("reads an optional room name", () => {
+    expect(parseRoomDoc('{"title":"  Sprint 42 "}').title).toBe("Sprint 42");
+    expect(parseRoomDoc("{}").title).toBeUndefined();
+    expect(toRoomState(parseRoomDoc('{"title":"X"}')).title).toBe("X");
+  });
+
+  // req: REQ-ROOM-007
+  it("removes a participant and their vote when they leave", () => {
+    const doc = apply(
+      NEW_ROOM_DOC,
+      patch.join("a", "Ana", 1),
+      patch.join("b", "Ben", 2),
+      patch.vote("a", "5", 1),
+      patch.leave("a"),
+    );
+    const s = toRoomState(doc);
+    expect(s.participants.map((p) => p.name)).toEqual(["Ben"]);
+    expect(s.votes).toEqual({});
+  });
 });
