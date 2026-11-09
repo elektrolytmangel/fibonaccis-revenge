@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-09 (kith 0.2.0-beta.2; room names, joined-rooms list, leave)
+- **Last updated:** 2026-11-09 (room layout option B)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -21,6 +21,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
 | Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.2 as release tarball. Room = kith org, one JSON document per room, one-time invite links, auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
+| Room layout | User picked option B (2026-11-09): one-line header + "⋯" menu (invite, your rooms, leave, theme, language; no footer), page scrolls, deck/actions/estimate pinned at the bottom on phones, two columns ≥900 px; estimate stays as a compact row. REQ-UI-009/010 revised. Checked in Firefox at 390 and 1100 px (light) only, not by the user yet. |
 | Rooms | Optional room name (in the room document), list of joined rooms on the landing page (from localStorage sessions), "Your rooms" and "Leave room" (confirm, removes own player entry, frees client, deletes session/device key/IndexedDB) in the room footer. |
 | Requirements | 32 in `docs/requirements/`: 18 implemented, 6 partial, 8 accepted (see below). ROOM-005..007 are new, from the user's request of 2026-11-09. |
 
@@ -52,7 +53,6 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 ### Open questions for the user
 
-- **Room layout on mobile (user feedback 2026-11-09):** room name and footer wrap to several lines, the participant list is the only scroller, view is cramped, estimate row is large. Three options proposed in chat: **A** slim header + "⋯" menu + estimate inline with the actions; **B** page scrolls, deck/actions sticky at the bottom, desktop two columns; **C** participants as compact 2-column grid, estimate replaces the hint line. Agent recommends B with A's menu. Waiting for the user's pick. Dropping the estimate row would change REQ-VOTE-004.
 
 - Where does the kith relay (and the web app) run for real use?
 - Joining needs the host online and every invite link is single use ("Copy invite link" makes a new one). Acceptable, or should a room get a permanent always-on member (kith-always-on) so it works without the host?
@@ -123,3 +123,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-05**: Deploy workflow passes `KITH_RELAY_URL` as `VITE_KITH_RELAY` and fails if it is not a `wss://` URL.
 - **2026-11-08**: kith bumped to 0.2.0-beta.1 (tarball URL only; lint, typecheck, 22 tests, build pass). Not re-checked by hand with two clients/relay beta: the sync notes in `docs/requirements/sync.md` still describe the alpha.3 check. Do that with the automated two-client test (next steps, 2.1).
 - **2026-11-09**: kith bumped to 0.2.0-beta.2. Room names, list of joined rooms, leave room (REQ-ROOM-005..007); 26 tests pass. Leave/list/name not yet checked by hand against a relay with two clients.
+- **2026-11-09**: Room layout option B implemented (header menu, page scroll, pinned dock, desktop two columns).

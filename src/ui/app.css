@@ -127,12 +127,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  /* Takes the remaining height and scrolls when the list is long. */
-  flex: 1 1 0;
-  min-height: 0;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--outline) transparent;
 }
 .person {
   flex-shrink: 0;
@@ -260,11 +254,117 @@ body {
   font-size: var(--text-sm);
 }
 
+/* The page scrolls; the cards and actions are pinned to the bottom on phones. */
 .page--room {
-  height: 100dvh;
-  overflow: hidden;
-  padding: var(--space-3);
+  min-height: 100dvh;
+  padding: var(--space-3) var(--space-3) 0;
   gap: var(--space-3);
+}
+.room-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.room-body .people {
+  order: 1;
+  padding-bottom: var(--space-2);
+}
+.dock {
+  order: 2;
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  background: var(--bg);
+}
+.dock .card {
+  min-height: 56px;
+}
+@media (min-width: 900px) {
+  .page--room {
+    max-width: 960px;
+    padding-top: var(--space-4);
+  }
+  .room-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-areas: "dock people";
+    align-items: start;
+    gap: var(--space-5);
+  }
+  .dock {
+    grid-area: dock;
+    position: static;
+    margin-top: 0;
+    padding: 0;
+    gap: var(--space-3);
+  }
+  .dock .deck {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .dock .card {
+    min-height: 72px;
+  }
+  .room-body .people {
+    grid-area: people;
+  }
+}
+
+.header {
+  position: relative;
+}
+.header__title {
+  min-width: 0;
+  display: flex;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+.header__title > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.room-name {
+  min-width: 0;
+}
+@media (max-width: 599px) {
+  .app-name {
+    display: none;
+  }
+}
+@media (min-width: 600px) {
+  .app-name::after {
+    content: " ·";
+  }
+}
+.btn--menu {
+  min-width: var(--target);
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--text-lg);
+}
+.menu__panel {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  min-width: 240px;
+  padding: var(--space-3);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 0 2px var(--outline);
+}
+.menu__panel .btn--quiet {
+  text-align: left;
+  padding: 0 var(--space-2);
 }
 
 /* The one result row: always present, empty until the reveal. */
@@ -273,30 +373,23 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  min-height: 72px;
+  min-height: 44px;
   padding: 0 var(--space-4);
   background: var(--surface);
   border-radius: var(--radius-lg);
 }
 .estimate__label {
   margin: 0;
-  font-size: var(--text-lg);
+  font-size: var(--text-md);
   font-weight: 800;
 }
 .estimate__value {
   margin: 0;
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   font-weight: 800;
   line-height: 1;
 }
 
-.footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
 .settings {
   display: flex;
   align-items: center;
@@ -314,10 +407,6 @@ body {
   font-size: var(--text-sm);
 }
 
-.room-name {
-  font-weight: 600;
-}
-
 .rooms {
   display: flex;
   flex-direction: column;
@@ -331,4 +420,9 @@ body {
   padding: var(--space-2) 0;
   color: inherit;
   font-weight: 700;
+}
+
+.menu__panel .settings {
+  margin-left: 0;
+  justify-content: space-between;
 }
