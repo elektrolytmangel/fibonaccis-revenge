@@ -8,7 +8,7 @@
 
 kith 0.2.0-beta.1 (`@elektrolytmangel/kith-wasm`) gives a group per org (MLS, end-to-end
 encrypted), JSON documents whose key-wise merge patches (RFC 7396) never conflict,
-IndexedDB persistence with a device key, and one-time invite links that an admin device
+IndexedDB persistence with a device key, and multi-use invite links that an admin device
 must accept while online.
 
 ## Decision
@@ -17,7 +17,7 @@ must accept while online.
 - **Each room has its own kith client**, in its own IndexedDB database and with its own device key (no identity shared between rooms; two rooms can be open in two tabs, because kith allows one client per database).
 - **One JSON document** per room (`poker-room`): `{round, revealedRound, players: {<deviceId>: {name, joined, vote?, round?}}}`. A device only writes its own player entry, `reveal` sets `revealedRound = round`, `reset` sets `round = round + 1`. A vote counts only if `vote.round === round`; votes are shown when `revealedRound === round`. This converges for concurrent vote, reveal and reset without deleting keys.
 - **Hidden votes are UI-only.** Votes are in the shared document; the UI shows them after Reveal. Commit-reveal stays an option for later.
-- **Join link = fresh one-time kith invite**, `#/join/<invite>` (valid 1 h). "Copy invite link" makes a new one per click. Whoever holds a valid invite is admitted automatically by the creator's device, so **the creator must be online** while someone joins. Late joiners fetch the state from any online member (`catchUp`).
+- **Join link = fresh multi-use kith invite** (`createMultiInvite`, kith 0.2.0-beta.3), `#/join/<invite>`, valid 24 h for up to 20 devices, so one link in the team chat is enough. "Copy invite link" still makes a new one per click. Whoever holds a valid invite is admitted automatically by the creator's device, so **the creator must be online** while someone joins. Late joiners fetch the state from any online member (`catchUp`).
 - The app takes the relay from the invite; the creator's relay is `VITE_KITH_RELAY` (default `ws://localhost:8080/v1/ws`).
 
 ## Consequences
