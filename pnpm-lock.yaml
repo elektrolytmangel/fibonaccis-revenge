@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       '@elektrolytmangel/kith-wasm':
-        specifier: https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.1/kith-wasm-0.2.0-beta.1.tgz
-        version: https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.1/kith-wasm-0.2.0-beta.1.tgz
+        specifier: https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.2/kith-wasm-0.2.0-beta.2.tgz
+        version: https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.2/kith-wasm-0.2.0-beta.2.tgz
       '@fontsource-variable/nunito':
         specifier: ^5.3.0
         version: 5.3.0
@@ -347,9 +347,9 @@ packages:
     resolution: {integrity: sha512-OoKoR0f76dCY666JlcbhmVTs2drYj1GUXZTYTcbUgJjh9Nv41aFfZ21bPQTERm5+L5cBDo466NltB2lplS5GBw==}
     engines: {node: '>=20.19.0'}
 
-  '@elektrolytmangel/kith-wasm@https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.1/kith-wasm-0.2.0-beta.1.tgz':
-    resolution: {integrity: sha512-aVMJvkZDVAJjtdeABtLH8MVJLNnmwdNWONWsCs46nXmhXqMGzP6ATRULPrfW0LwEilvwQ2DGl4iEYt4Pwgd6tA==, tarball: https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.1/kith-wasm-0.2.0-beta.1.tgz}
-    version: 0.2.0-beta.1
+  '@elektrolytmangel/kith-wasm@https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.2/kith-wasm-0.2.0-beta.2.tgz':
+    resolution: {integrity: sha512-AL6g7vgFavL2Rf0FO82/oex81D58ZrL0AEfvNDguJpvU+eoWxPqrSa5D74YaJtMo0n7sE2F3qDnXnQ0OvYTDnA==, tarball: https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.2/kith-wasm-0.2.0-beta.2.tgz}
+    version: 0.2.0-beta.2
 
   '@exodus/bytes@1.16.0':
     resolution: {integrity: sha512-IcpW84uEn3N7ETtNZMlxKhfl6Pec8rUNGOTBtWbK1FKhJxIFAptZyVrvVRVBimAJxJCgc3PxepxkdWWG4DVzfA==}
@@ -1198,7 +1198,7 @@ snapshots:
 
   '@csstools/css-tokenizer@4.0.2': {}
 
-  '@elektrolytmangel/kith-wasm@https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.1/kith-wasm-0.2.0-beta.1.tgz': {}
+  '@elektrolytmangel/kith-wasm@https://github.com/elektrolytmangel/kith/releases/download/v0.2.0-beta.2/kith-wasm-0.2.0-beta.2.tgz': {}
 
   '@exodus/bytes@1.16.0': {}
 

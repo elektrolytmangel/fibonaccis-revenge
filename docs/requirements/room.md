@@ -33,3 +33,21 @@ Other participants appear through kith; checked by hand.
 A returning participant on the same device should keep their identity and the room state.
 
 The device identity and room data live in IndexedDB; a reload reopens the room. Checked by hand.
+
+### REQ-ROOM-005: Optional room name
+
+- **Priority:** should | **Phase:** 2 | **Status:** implemented | **Verify:** test | **Source:** user request 2026-11-09
+
+The creator of a room may give it a name. Without one the room stays unnamed. The name is part of the shared room document and shown in the room header.
+
+### REQ-ROOM-006: List of joined rooms
+
+- **Priority:** should | **Phase:** 2 | **Status:** implemented | **Verify:** manual | **Source:** user request 2026-11-09
+
+The landing page lists the rooms this browser has joined (by name, or "Unnamed room"); a room opens with one click, without an invite. Rooms can also be reached from inside a room ("Your rooms").
+
+### REQ-ROOM-007: Leave a room
+
+- **Priority:** should | **Phase:** 2 | **Status:** implemented | **Verify:** test | **Source:** user request 2026-11-09
+
+A participant can leave a room after a confirmation. They disappear from the participant list (with their vote), and the room is forgotten on this device (session, device key, database). Coming back needs a new invite link.

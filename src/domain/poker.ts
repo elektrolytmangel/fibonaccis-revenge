@@ -7,6 +7,8 @@ export interface Participant {
 }
 
 export interface RoomState {
+  /** Optional room name. */
+  title?: string;
   participants: Participant[];
   votes: Record<string, Card>;
   revealed: boolean;

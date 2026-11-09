@@ -11,11 +11,13 @@ import { Room } from "./Room";
  */
 export interface Backend {
   /** Start a room as its first participant; resolves to the room id for the link. */
-  create(name: string): Promise<string>;
+  create(name: string, title?: string): Promise<string>;
   /** Join with an invite link (waits until the host admits this device); resolves to the room id. */
   join(name: string, invite: string): Promise<string>;
   /** Is this room already known to this browser (rejoin without a name)? */
   isKnown(roomId: string): boolean;
+  /** Rooms this browser has joined, newest first. */
+  listRooms(): { id: string; title?: string }[];
   /** React hook that provides the `RoomApi` of a joined room. */
   useRoom(roomId: string, name: string | null): RoomApi | null | Error;
 }
@@ -38,9 +40,11 @@ function parseHash(): { room: string | null; invite: string | null } {
 /** Everything in this tab, nobody else can join: tests and offline demos. */
 export const localBackend: Backend = (() => {
   const names = new Map<string, string>();
+  const titles = new Map<string, string>();
   return {
-    create: async (name) => {
+    create: async (name, title) => {
       const id = randomId();
+      if (title) titles.set(id, title);
       names.set(id, name);
       return id;
     },
@@ -50,12 +54,14 @@ export const localBackend: Backend = (() => {
       return link;
     },
     isKnown: () => false,
+    listRooms: () => [],
     useRoom(roomId, name) {
       const [me] = useState<Participant>(() => ({
         id: randomId(),
         name: name ?? names.get(roomId) ?? "",
       }));
-      return useLocalRoom(me);
+      const room = useLocalRoom(me);
+      return { ...room, state: { ...room.state, title: titles.get(roomId) } };
     },
   };
 })();
@@ -64,10 +70,12 @@ function JoinedRoom({
   backend,
   roomId,
   name,
+  onHome,
 }: {
   backend: Backend;
   roomId: string;
   name: string | null;
+  onHome(): void;
 }) {
   const room = backend.useRoom(roomId, name);
   if (room instanceof Error || room === null) {
@@ -75,7 +83,7 @@ function JoinedRoom({
       <Landing roomId={roomId} busy={room === null} error={room?.message} onStart={() => {}} />
     );
   }
-  return <Room room={room} />;
+  return <Room room={room} onHome={onHome} />;
 }
 
 export function App({ backend = localBackend }: { backend?: Backend }) {
@@ -94,7 +102,12 @@ export function App({ backend = localBackend }: { backend?: Backend }) {
   const reopen = route.room !== null && backend.isKnown(route.room);
   const roomId = joined?.roomId ?? (reopen ? route.room : null);
 
-  const start = async (name: string) => {
+  const home = () => {
+    setJoined(null);
+    window.location.hash = "";
+  };
+
+  const start = async (name: string, title?: string) => {
     setError(null);
     setBusy(true);
     try {
@@ -107,7 +120,7 @@ export function App({ backend = localBackend }: { backend?: Backend }) {
         const id = await backend.join(name, route.room);
         setJoined({ roomId: id, name });
       } else {
-        const id = await backend.create(name);
+        const id = await backend.create(name, title);
         window.location.hash = `#/room/${id}`;
         setJoined({ roomId: id, name });
       }
@@ -121,13 +134,14 @@ export function App({ backend = localBackend }: { backend?: Backend }) {
   return (
     <I18nProvider>
       {roomId ? (
-        <JoinedRoom backend={backend} roomId={roomId} name={joined?.name ?? null} />
+        <JoinedRoom backend={backend} roomId={roomId} name={joined?.name ?? null} onHome={home} />
       ) : (
         <Landing
           roomId={route.room ?? (route.invite ? "invite" : null)}
           busy={busy}
           error={error ?? undefined}
           waiting={busy && route.invite !== null}
+          rooms={backend.listRooms()}
           onStart={start}
         />
       )}

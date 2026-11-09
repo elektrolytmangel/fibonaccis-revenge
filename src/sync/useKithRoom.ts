@@ -2,7 +2,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { initialRoom } from "../domain/poker";
 import type { RoomApi } from "../room/useLocalRoom";
 import type { Backend } from "../ui/App";
-import { KithRoom, knownRoom } from "./kithRoom";
+import { joinedRooms, KithRoom, knownRoom } from "./kithRoom";
 
 /** Rooms in this page by id: StrictMode runs effects twice, a database must open once. */
 const rooms = new Map<string, Promise<KithRoom>>();
@@ -50,12 +50,16 @@ function useKithRoom(org: string): RoomApi | null | Error {
     reveal: () => room.reveal(),
     reset: () => room.reset(),
     createLink: async () => room.createLink(),
+    leave: async () => {
+      rooms.delete(org);
+      await room.leave();
+    },
   };
 }
 
 export const kithBackend: Backend = {
-  async create(name) {
-    const room = await KithRoom.create(name);
+  async create(name, title) {
+    const room = await KithRoom.create(name, title);
     rooms.set(room.org, Promise.resolve(room));
     return room.org;
   },
@@ -65,5 +69,6 @@ export const kithBackend: Backend = {
     return room.org;
   },
   isKnown: knownRoom,
+  listRooms: joinedRooms,
   useRoom: (roomId) => useKithRoom(roomId),
 };

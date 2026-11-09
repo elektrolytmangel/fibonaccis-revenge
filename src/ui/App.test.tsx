@@ -30,6 +30,26 @@ describe("app", () => {
     expect(window.location.hash).toMatch(/^#\/room\/\w+$/);
   });
 
+  // req: REQ-ROOM-005
+  it("shows an optional room name in the header", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    await user.type(screen.getByLabelText(/your name/i), "Marc");
+    await user.type(screen.getByLabelText(/room name/i), "Sprint 42");
+    await user.click(screen.getByRole("button", { name: /create room/i }));
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Sprint 42");
+  });
+
+  // req: REQ-ROOM-007
+  it("leaves a room after confirmation and returns to the landing page", async () => {
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(true);
+    const user = await startRoom();
+    await user.click(screen.getByRole("button", { name: "Leave room" }));
+    expect(confirm).toHaveBeenCalled();
+    expect(await screen.findByRole("button", { name: /create room/i })).toBeInTheDocument();
+    confirm.mockRestore();
+  });
+
   // req: REQ-ROOM-002
   it("joins an existing room from a link and asks for a name", async () => {
     window.location.hash = "#/room/abc123";

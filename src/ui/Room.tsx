@@ -7,7 +7,7 @@ import { Estimate } from "./Estimate";
 import { Participants } from "./Participants";
 import { Settings } from "./Settings";
 
-export function Room({ room }: { room: RoomApi }) {
+export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
   const { state, me } = room;
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
@@ -17,7 +17,10 @@ export function Room({ room }: { room: RoomApi }) {
   return (
     <main className="page page--room">
       <header className="header">
-        <h1 className="title title--small">Fibonacci’s Revenge</h1>
+        <h1 className="title title--small">
+          Fibonacci’s Revenge
+          {state.title && <span className="room-name"> · {state.title}</span>}
+        </h1>
         <button
           type="button"
           className="btn btn--quiet"
@@ -71,6 +74,22 @@ export function Room({ room }: { room: RoomApi }) {
             {t("room.addDemo")}
           </button>
         )}
+        {onHome && (
+          <button type="button" className="btn btn--quiet" onClick={onHome}>
+            {t("room.myRooms")}
+          </button>
+        )}
+        <button
+          type="button"
+          className="btn btn--quiet"
+          onClick={async () => {
+            if (!window.confirm(t("room.leaveConfirm"))) return;
+            await room.leave();
+            onHome?.();
+          }}
+        >
+          {t("room.leave")}
+        </button>
         <Settings />
       </footer>
     </main>
