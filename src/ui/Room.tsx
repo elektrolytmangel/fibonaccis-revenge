@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { votedCount } from "../domain/poker";
 import { useI18n } from "../i18n/i18n";
 import type { RoomApi } from "../room/useLocalRoom";
-import { copyText } from "./clipboard";
+import { canShare, copyText, shareUrl } from "./clipboard";
 import { Deck } from "./Deck";
 import { Estimate } from "./Estimate";
 import { Participants } from "./Participants";
@@ -15,6 +15,35 @@ export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [manualLink, setManualLink] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const copiedTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const shareable = canShare();
+
+  useEffect(() => () => clearTimeout(copiedTimer.current), []);
+
+  /** "send" shares (phones) or copies (desktop); "show" only displays the link. Failures show it. */
+  async function invite(mode: "send" | "show") {
+    setManualLink(null);
+    let link: string;
+    try {
+      link = await room.createLink();
+    } catch {
+      return;
+    }
+    try {
+      if (mode === "show") {
+        setManualLink(link);
+      } else if (shareable) {
+        await shareUrl(link, t("room.shareTitle"));
+      } else {
+        await copyText(link);
+        setCopied(true);
+        clearTimeout(copiedTimer.current);
+        copiedTimer.current = setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      setManualLink(link);
+    }
+  }
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -52,27 +81,28 @@ export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
           </button>
           {menuOpen && (
             <div id="room-menu" className="menu__panel">
-              <button
-                type="button"
-                className="btn btn--item"
-                onClick={() => {
-                  setManualLink(null);
-                  const link = room.createLink();
-                  copyText(link).then(
-                    () => setCopied(true),
-                    async () => {
-                      setCopied(false);
-                      setManualLink(await link.catch(() => null));
-                    },
-                  );
-                }}
-              >
-                {copied ? t("room.linkCopied") : t("room.copyLink")}
+              <button type="button" className="btn btn--item" onClick={() => invite("send")}>
+                {copied
+                  ? t("room.linkCopied")
+                  : shareable
+                    ? t("room.shareLink")
+                    : t("room.copyLink")}
               </button>
-              {manualLink && (
+              {manualLink ? (
                 <p className="menu__copy" role="status">
-                  {manualLink}
+                  <span>{t("room.copyByHand")}</span>
+                  <input
+                    className="menu__link"
+                    readOnly
+                    value={manualLink}
+                    aria-label={t("room.inviteLink")}
+                    onFocus={(e) => e.currentTarget.select()}
+                  />
                 </p>
+              ) : (
+                <button type="button" className="btn btn--item" onClick={() => invite("show")}>
+                  {t("room.showLink")}
+                </button>
               )}
               {onHome && (
                 <button type="button" className="btn btn--item" onClick={onHome}>

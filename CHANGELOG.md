@@ -25,3 +25,4 @@
 - Rooms: optional name (REQ-ROOM-005), list of joined rooms on the landing page and "Your rooms" in a room (REQ-ROOM-006), leave a room (REQ-ROOM-007).
 - Room layout (option B): one-line header with a menu (invite, rooms, leave, theme, language) replaces the footer; the page scrolls, cards/actions/estimate pinned at the bottom on phones, two columns on desktop; compact estimate row.
 - Room menu: item style, language on its own row, closes on outside tap; layout stacked on all sizes and the page scrolls as a whole (nothing pinned); invite link copy works on iOS Safari.
+- Invite link: copy on desktop (reverts after 2 s), system share sheet on phones, selectable link as fallback (REQ-ROOM-008).

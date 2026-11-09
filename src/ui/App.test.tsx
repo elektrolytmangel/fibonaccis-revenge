@@ -161,4 +161,21 @@ describe("app", () => {
     expect(makeT("pl")("room.waiting", { count: 3 })).toContain("3 głosy…");
     expect(makeT("pl")("room.waiting", { count: 5 })).toContain("5 głosów…");
   });
+
+  // req: REQ-ROOM-008
+  it("copies the invite link, shows it for 2 s and offers it for manual copy", async () => {
+    const user = await startRoom();
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.spyOn(navigator, "clipboard", "get").mockReturnValue({ writeText } as never);
+    await user.click(screen.getByRole("button", { name: "Menu" }));
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    await user.click(screen.getByRole("button", { name: "Copy invite link" }));
+    expect(await screen.findByRole("button", { name: "Link copied" })).toBeInTheDocument();
+    expect(writeText).toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(2100);
+    expect(await screen.findByRole("button", { name: "Copy invite link" })).toBeInTheDocument();
+    vi.useRealTimers();
+    await user.click(screen.getByRole("button", { name: "Show invite link" }));
+    expect((screen.getByLabelText("Invite link") as HTMLInputElement).value).toContain("#/room/");
+  });
 });
