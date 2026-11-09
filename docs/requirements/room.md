@@ -51,3 +51,9 @@ The landing page lists the rooms this browser has joined (by name, or "Unnamed r
 - **Priority:** should | **Phase:** 2 | **Status:** implemented | **Verify:** test | **Source:** user request 2026-11-09
 
 A participant can leave a room after a confirmation. They disappear from the participant list (with their vote), and the room is forgotten on this device (session, device key, database). Coming back needs a new invite link.
+
+### REQ-ROOM-008: Share or copy the invite link
+
+- **Priority:** must | **Phase:** 2 | **Status:** implemented | **Verify:** test | **Source:** user request 2026-11-09
+
+The menu offers the invite link as: **copy** on desktop (the label changes to "Link copied" for 2 s, then returns), **share** through the system share sheet on touch devices that have one (iOS, Android). If copying or sharing fails, and always on request ("Show invite link"), the link is displayed in a selectable field so it can be copied by hand.
