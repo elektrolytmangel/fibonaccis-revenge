@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { votedCount } from "../domain/poker";
 import { useI18n } from "../i18n/i18n";
 import type { RoomApi } from "../room/useLocalRoom";
+import { copyText } from "./clipboard";
 import { Deck } from "./Deck";
 import { Estimate } from "./Estimate";
 import { Participants } from "./Participants";
@@ -12,12 +13,21 @@ export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [manualLink, setManualLink] = useState<string | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    const onPointer = (e: PointerEvent) => {
+      if (!menuRef.current?.contains(e.target as Node)) setMenuOpen(false);
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    };
   }, [menuOpen]);
   const voted = votedCount(state);
   const waiting = state.participants.length - voted;
@@ -29,7 +39,7 @@ export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
           <span className={state.title ? "app-name" : undefined}>Fibonacci’s Revenge</span>
           {state.title && <span className="room-name">{state.title}</span>}
         </h1>
-        <div className="menu">
+        <div className="menu" ref={menuRef}>
           <button
             type="button"
             className="btn btn--menu"
@@ -44,26 +54,34 @@ export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
             <div id="room-menu" className="menu__panel">
               <button
                 type="button"
-                className="btn btn--quiet"
-                onClick={async () => {
-                  try {
-                    await navigator.clipboard?.writeText(await room.createLink());
-                    setCopied(true);
-                  } catch {
-                    setCopied(false);
-                  }
+                className="btn btn--item"
+                onClick={() => {
+                  setManualLink(null);
+                  const link = room.createLink();
+                  copyText(link).then(
+                    () => setCopied(true),
+                    async () => {
+                      setCopied(false);
+                      setManualLink(await link.catch(() => null));
+                    },
+                  );
                 }}
               >
                 {copied ? t("room.linkCopied") : t("room.copyLink")}
               </button>
+              {manualLink && (
+                <p className="menu__copy" role="status">
+                  {manualLink}
+                </p>
+              )}
               {onHome && (
-                <button type="button" className="btn btn--quiet" onClick={onHome}>
+                <button type="button" className="btn btn--item" onClick={onHome}>
                   {t("room.myRooms")}
                 </button>
               )}
               <button
                 type="button"
-                className="btn btn--quiet"
+                className="btn btn--item"
                 onClick={async () => {
                   if (!window.confirm(t("room.leaveConfirm"))) return;
                   await room.leave();
@@ -73,7 +91,7 @@ export function Room({ room, onHome }: { room: RoomApi; onHome?: () => void }) {
                 {t("room.leave")}
               </button>
               {room.addDemoTeammate && (
-                <button type="button" className="btn btn--quiet" onClick={room.addDemoTeammate}>
+                <button type="button" className="btn btn--item" onClick={room.addDemoTeammate}>
                   {t("room.addDemo")}
                 </button>
               )}
