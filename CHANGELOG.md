@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Russian added as a language (with plural forms).
 - Fix: dev server served index.html instead of the kith wasm file (pre-bundling); excluded from `optimizeDeps`.
 - Repository structure.
 - Local-state UI: rooms, Fibonacci deck, hidden votes, reveal, results, themes.

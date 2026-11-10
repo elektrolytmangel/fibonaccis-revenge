@@ -8,7 +8,7 @@ that supersedes the old one.
 | ------------------------------------ | -------------------------------------------------------------------- |
 | [0001](0001-react-vite-kith-npm.md)  | TypeScript + Vite + React, kith as npm tarball from a GitHub Release |
 | [0014](0014-room-document-and-invites.md) | Room = kith org, one JSON document per room, multi-use invites as join links |
-| [0013](0013-own-minimal-i18n.md) | Minimal in-house i18n (de, en, pl) |
+| [0013](0013-own-minimal-i18n.md) | Minimal in-house i18n (de, en, pl, ru) |
 | [0012](0012-dark-cards-same-as-light.md) | Dark theme: inactive cards use the light theme's tint (supersedes 0010) |
 | [0011](0011-selected-card-colour-only.md) | Selected card marked by colour only |
 | [0010](0010-dark-sky-surge-cards.md) | Dark theme: Sky Surge inactive cards (amends 0008) |
