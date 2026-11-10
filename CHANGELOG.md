@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Fix: dev server served index.html instead of the kith wasm file (pre-bundling); excluded from `optimizeDeps`.
 - Repository structure.
 - Local-state UI: rooms, Fibonacci deck, hidden votes, reveal, results, themes.
 - Tooling: Biome replaces ESLint and Prettier; TypeScript 7.
