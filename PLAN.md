@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-09 (kith beta.3 multi-use invites)
+- **Last updated:** 2026-11-10 (dev-server wasm fix)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -98,6 +98,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **pnpm 12 rejects packages younger than 1 day** (`minimumReleaseAge`), also from the lockfile: `pnpm install --frozen-lockfile` failed in CI on a same-day Biome release. Pin the previous release and keep the policy. Dependabot PRs for brand-new releases may need a day.
 - **Requirement IDs must match `REQ-[A-Z]+-\d{3}`**: no digits in the area prefix (so `LANG`, not `I18N`).
 - **Vitest needs `globals: true`** for `it`/`test` without imports (also what `reqs.py` detects as test context). `<output>` has an implicit `status` role and collides with the hint line.
+- **`vite dev` served `index.html` instead of `kith_bg.wasm`** (symptom: HTML/JS in the wasm response, invites/rooms fail in dev): dependency pre-bundling moved `kith.js` away from its wasm. Fixed with `optimizeDeps.exclude` for the kith package in `vite.config.ts`; production build was never affected. After changing it, delete `node_modules/.vite`.
 - **Never `pkill -f` a pattern that also appears in your own command line**: it kills the shell (exit 144). Kill by PID.
 - **Firefox headless screenshots** (visual checks): `firefox --no-remote --profile <dir under ~/snap/firefox/common> --headless --screenshot <file under ~/snap/firefox/common> --window-size=W,H <url>`. Snap confinement forbids `/tmp`; the first call sometimes fails, retry. Use a temporary scratch page rendering `Room` with fake state against `vite`, and delete it afterwards.
 - **The permission classifier blocked a PR merge once** (PR #1); the user allowed it afterwards. Later merges went through.
@@ -127,3 +128,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-09**: Menu/layout feedback: stacked layout on all sizes, nothing pinned, menu restyled and closes outside, iPhone copy fix.
 - **2026-11-09**: Invite link: desktop copy with 2 s feedback, mobile share sheet, manual-copy fallback (REQ-ROOM-008, 30 tests). User to verify on Chrome and iPhone/Android.
 - **2026-11-09**: kith bumped to 0.2.0-beta.3; join link is a multi-use invite (`createMultiInvite`, 24 h, 20 devices). Not yet checked by hand with 3+ clients against the beta.3 relay.
+- **2026-11-10**: Fixed dev-server wasm load (`optimizeDeps.exclude` kith-wasm); wasm now served as `application/wasm`.
