@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-10 (dev-server wasm fix)
+- **Last updated:** 2026-11-10 (Russian)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -20,7 +20,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
 | Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.3 as release tarball. Room = kith org, one JSON document per room, multi-use invite links (24 h, 20 devices), auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
-| Languages | German, English, Polish (in-house i18n, correct plurals, browser detection, remembered choice). |
+| Languages | German, English, Polish, Russian (in-house i18n, correct plurals, browser detection, remembered choice). |
 | Room layout | User picked option B (2026-11-09): one-line header + "⋯" menu (invite, your rooms, leave, theme, language; no footer), then user feedback: whole page scrolls, nothing pinned, same stacked order on desktop and phone (cards, actions, estimate, participants), menu items as buttons (language on its own row, closes on outside tap), invite link: copy on desktop ("Link copied" for 2 s), system share sheet on touch devices with `navigator.share`, "Show invite link" / automatic fallback field (REQ-ROOM-008; copy chain ClipboardItem promise, writeText, execCommand). REQ-UI-009/010 revised. Checked in Firefox only; **copy/share not verified in real Chrome or on a real iPhone/Android** (no Chromium on the dev machine; cause of the earlier Chrome failure unknown, plain-http origins have no `navigator.clipboard`, now covered by the execCommand fallback). |
 | Rooms | Optional room name (in the room document), list of joined rooms on the landing page (from localStorage sessions), "Your rooms" and "Leave room" (confirm, removes own player entry, frees client, deletes session/device key/IndexedDB) in the room footer. |
 | Requirements | 33 in `docs/requirements/`: 19 implemented, 6 partial, 8 accepted (see below). ROOM-005..007 are new, from the user's request of 2026-11-09. |
@@ -43,7 +43,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 ### Next steps (in order)
 
-1. **User reviews the look** (`pnpm dev`) and the German/Polish texts (written by the agent, need a native check). Fix what they find.
+1. **User reviews the look** (`pnpm dev`) and the German/Polish/Russian texts (written by the agent, need a native check). Fix what they find.
 2. **Test and harden the kith integration:**
    1. Automated two-client test (real wasm + local relay, e.g. Playwright in CI) for REQ-SYNC-001/004, ROOM-002..004; then set those requirements to `implemented`.
    2. Connection state in the UI (offline / reconnecting), host-offline message when joining times out, "room opened in another tab" message (kith allows one client per database).
@@ -65,7 +65,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 - **kith is alpha and "not fine for real user data"** (relay does not check org membership, no permission checks on changes). Fine for building; revisit before exposing publicly.
 - **Navy buttons on the onyx dark background have only 1.6:1 shape contrast** (labels 12.5:1): accepted by the user ([ADR 0008](docs/adr/0008-dark-white-cards-navy-primary.md)). Fallback if it looks too faint: Sky Surge as the dark primary (8.9:1).
-- **Translations are unreviewed** (de, pl).
+- **Translations are unreviewed** (de, pl, ru).
 
 ## Decisions (don't re-litigate without the user)
 
@@ -83,7 +83,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Estimate = smallest Fibonacci number ≥ average of numeric votes; no distribution/average/consensus UI; row always present, empty until reveal | User | REQ-VOTE-004 |
 | Room layout: one-line header + menu, cards, actions, estimate row, participants; whole page scrolls, stacked on all sizes | User (revised 2026-11-09) | REQ-UI-009, 010 |
 | Reset is a constant, always enabled secondary button; disabled controls are flat (no opacity, cards unchanged after reveal) | User | REQ-UI-002 |
-| i18n de/en/pl without a library | Small app; `Intl.PluralRules` | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
+| i18n de/en/pl/ru without a library | Small app; `Intl.PluralRules` | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
 | Web app hosted on Azure Static Web Apps, deployed from `main` by GitHub Actions | User | `.github/workflows/deploy-azure.yml` |
 | Favicon: white Fibonacci spiral with a plum dot on navy | Agent design, user asked for "very nice" | `public/favicon.svg` |
 
@@ -129,3 +129,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-09**: Invite link: desktop copy with 2 s feedback, mobile share sheet, manual-copy fallback (REQ-ROOM-008, 30 tests). User to verify on Chrome and iPhone/Android.
 - **2026-11-09**: kith bumped to 0.2.0-beta.3; join link is a multi-use invite (`createMultiInvite`, 24 h, 20 devices). Not yet checked by hand with 3+ clients against the beta.3 relay.
 - **2026-11-10**: Fixed dev-server wasm load (`optimizeDeps.exclude` kith-wasm); wasm now served as `application/wasm`.
+- **2026-11-10**: Russian added as a language (REQ-LANG-001/002, ADR 0013 updated); texts need a native check.

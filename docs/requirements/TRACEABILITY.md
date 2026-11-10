@@ -6,7 +6,7 @@
 
 | ID | Title | Pri | Phase | Status | Verify | Tests | Code refs |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [REQ-LANG-001](i18n.md#req-lang-001-german-english-and-polish) | German, English and Polish | must | 1 | implemented | test | `src/ui/App.test.tsx` | — |
+| [REQ-LANG-001](i18n.md#req-lang-001-german-english-polish-and-russian) | German, English, Polish and Russian | must | 1 | implemented | test | `src/ui/App.test.tsx` | — |
 | [REQ-LANG-002](i18n.md#req-lang-002-correct-plurals) | Correct plurals | must | 1 | implemented | test | `src/ui/App.test.tsx` | — |
 | [REQ-PLAT-001](platform.md#req-plat-001-web-app-stack) | Web app stack | must | 1 | accepted | review | `src/ui/App.test.tsx` | — |
 | [REQ-PLAT-002](platform.md#req-plat-002-kith-from-release-tarball) | kith from release tarball | must | 2 | implemented | review | — | — |

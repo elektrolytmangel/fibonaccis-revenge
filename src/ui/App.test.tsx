@@ -160,6 +160,9 @@ describe("app", () => {
     expect(makeT("pl")("room.waiting", { count: 1 })).toContain("1 głos…");
     expect(makeT("pl")("room.waiting", { count: 3 })).toContain("3 głosy…");
     expect(makeT("pl")("room.waiting", { count: 5 })).toContain("5 głosów…");
+    expect(makeT("ru")("room.waiting", { count: 1 })).toContain("1 голос…");
+    expect(makeT("ru")("room.waiting", { count: 3 })).toContain("3 голоса…");
+    expect(makeT("ru")("room.waiting", { count: 5 })).toContain("5 голосов…");
   });
 
   // req: REQ-ROOM-008

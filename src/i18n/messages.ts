@@ -150,10 +150,62 @@ const pl: Messages = {
   "settings.language": "Język",
 };
 
+const ru: Messages = {
+  "landing.lead": "Оценивайте вместе, спокойно.",
+  "landing.leadInvited": "Вас пригласили оценивать вместе.",
+  "landing.name": "Ваше имя",
+  "landing.create": "Создать комнату",
+  "landing.join": "Войти в комнату",
+  "landing.waiting": "Ждём, пока хозяин комнаты вас впустит…",
+  "landing.keepOpen": "Хозяин должен быть онлайн. Не закрывайте эту страницу.",
+  "landing.error": "Не получилось.",
+  "landing.badLink": "Эта ссылка-приглашение недействительна.",
+  "landing.loading": "Открываем комнату…",
+  "room.copyLink": "Копировать ссылку-приглашение",
+  "room.linkCopied": "Ссылка скопирована",
+  "room.shareLink": "Поделиться ссылкой-приглашением",
+  "room.showLink": "Показать ссылку-приглашение",
+  "room.inviteLink": "Ссылка-приглашение",
+  "room.copyByHand": "Скопируйте ссылку вручную:",
+  "room.shareTitle": "Присоединяйтесь к моему planning poker",
+  "room.deck": "Выберите карту",
+  "room.unsure": "Не уверен",
+  "room.reveal": "Показать голоса",
+  "room.reset": "Сбросить",
+  "room.hintStart": "Выберите карту, чтобы начать.",
+  "room.waiting": {
+    one: "Ждём ещё {count} голос…",
+    few: "Ждём ещё {count} голоса…",
+    many: "Ждём ещё {count} голосов…",
+    other: "Ждём ещё {count} голоса…",
+  },
+  "room.allVoted": "Все проголосовали.",
+  "room.estimate": "Оценка",
+  "room.participants": "Участники",
+  "room.you": "(вы)",
+  "room.voted": "✓ Проголосовал",
+  "room.thinking": "Думает…",
+  "room.addDemo": "Добавить тестового коллегу (только dev)",
+  "landing.roomName": "Название комнаты (необязательно)",
+  "landing.myRooms": "Ваши комнаты",
+  "landing.unnamedRoom": "Комната без названия",
+  "room.leave": "Покинуть комнату",
+  "room.leaveConfirm":
+    "Покинуть эту комнату? Вернуться можно будет только по новой ссылке-приглашению.",
+  "room.myRooms": "Ваши комнаты",
+  "room.menu": "Меню",
+  "settings.theme": "Тема",
+  "settings.theme.system": "Системная",
+  "settings.theme.light": "Светлая",
+  "settings.theme.dark": "Тёмная",
+  "settings.language": "Язык",
+};
+
 export const LANGUAGES = {
   en: { name: "English", messages: en as Messages },
   de: { name: "Deutsch", messages: de },
   pl: { name: "Polski", messages: pl },
+  ru: { name: "Русский", messages: ru },
 } as const;
 
 export type Language = keyof typeof LANGUAGES;
