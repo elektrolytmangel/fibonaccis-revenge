@@ -1,0 +1,152 @@
+/*
+ * Retro styles (REQ-UI-011, ADR 0015): "pixel" (8-bit) and "terminal", set as data-style on <html>.
+ * Each overrides the tokens from tokens.css and adds a few shape rules; app.css stays shared.
+ * Colours use light-dark(), so every style follows the system / light / dark choice (REQ-UI-004).
+ * Still no motion (REQ-UI-007). Contrast: text >= 4.5:1, selected vs unselected card >= 3:1 (REQ-UI-005).
+ */
+:root[data-style] {
+  color-scheme: light dark;
+  --radius-lg: 0;
+  --radius-md: 0;
+  --radius-pill: 0;
+}
+:root[data-style][data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-style][data-theme="dark"] {
+  color-scheme: dark;
+}
+[data-style] .avatar {
+  border-radius: 0;
+}
+/* Monospace and pixel fonts run wide: keep the two action labels on one line on phones. */
+[data-style] .actions__buttons .btn {
+  padding: 0 var(--space-2);
+}
+
+/* ---------- 8-bit: cream paper and navy ink by day, night-blue screen with white cards by night. ---------- */
+:root[data-style="pixel"] {
+  --font: "Pixelify Sans Variable", ui-monospace, monospace;
+  --font-display: "Press Start 2P", "Pixelify Sans Variable", ui-monospace, monospace;
+
+  --bg: light-dark(#f3ead3, #1a1c2c);
+  --surface: light-dark(#fbf6e9, #262b44);
+  --card: light-dark(#ffffff, #f4f4f4);
+  --text: light-dark(#1a1c2c, #f4f4f4);
+  --on-card: #1a1c2c;
+  --on-card-muted: #4a4e69;
+  --muted: light-dark(#4a4e69, #b4b8d0);
+  --outline: light-dark(#1a1c2c, #f4f4f4);
+  --accent: light-dark(#12355b, #3b5dc9);
+  --on-accent: #ffffff;
+  --highlight: #ffcd75;
+  --on-highlight: #1a1c2c;
+  --focus: light-dark(#b13e53, #ffcd75);
+  --avatar-a: #b13e53;
+  --on-avatar-a: #ffffff;
+  --avatar-b: #38b764;
+  --on-avatar-b: #1a1c2c;
+  --avatar-c: #ffcd75;
+  --on-avatar-c: #1a1c2c;
+  --ink: light-dark(#1a1c2c, #f4f4f4);
+  --block-shadow: light-dark(#1a1c2c, #000000);
+}
+
+[data-style="pixel"]
+  :is(
+    .card,
+    .btn--primary,
+    .btn--secondary,
+    .btn--menu,
+    .panel,
+    .person,
+    .estimate,
+    .field input,
+    .settings select,
+    .menu__panel
+  ) {
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--block-shadow);
+}
+/* A pressed key: the selected card sits in its shadow. */
+[data-style="pixel"] .card--selected {
+  box-shadow: none;
+  translate: 4px 4px;
+}
+[data-style="pixel"] :is(.title, .card__value, .estimate__value, .chip--value) {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.4;
+}
+[data-style="pixel"] .title {
+  font-size: 1.5rem;
+}
+[data-style="pixel"] .title--small {
+  font-size: 0.875rem;
+}
+[data-style="pixel"] .card__value {
+  font-size: 1.125rem;
+}
+[data-style="pixel"] .estimate__value,
+[data-style="pixel"] .chip--value {
+  font-size: 0.875rem;
+}
+
+/* ---------- Terminal: phosphor green on black by night, line printer on paper by day. ---------- */
+:root[data-style="terminal"] {
+  --font: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --bg: light-dark(#f4f1e8, #0b0f0b);
+  --surface: light-dark(#ebe7da, #0f1a12);
+  --card: light-dark(#fffdf6, #0b0f0b);
+  --text: light-dark(#111111, #33ff66);
+  --on-card: light-dark(#111111, #33ff66);
+  --on-card-muted: light-dark(#444444, #1f9a40);
+  --muted: light-dark(#444444, #29c752);
+  --outline: light-dark(#111111, #29c752);
+  --accent: light-dark(#111111, #33ff66);
+  --on-accent: light-dark(#fffdf6, #0b0f0b);
+  --highlight: light-dark(#1d6b34, #ffb000);
+  --on-highlight: light-dark(#ffffff, #0b0f0b);
+  --focus: light-dark(#1d6b34, #ffb000);
+  --avatar-a: light-dark(#111111, #33ff66);
+  --on-avatar-a: light-dark(#ffffff, #0b0f0b);
+  --avatar-b: light-dark(#1d6b34, #ffb000);
+  --on-avatar-b: light-dark(#ffffff, #0b0f0b);
+  --avatar-c: light-dark(#8a5200, #5ccfe6);
+  --on-avatar-c: light-dark(#ffffff, #0b0f0b);
+}
+
+[data-style="terminal"] :is(.card, .btn--secondary, .btn--menu, .field input, .settings select) {
+  border: 2px solid var(--outline);
+}
+[data-style="terminal"] :is(.panel, .person, .estimate, .menu__panel) {
+  border: 1px dashed var(--outline);
+  box-shadow: none;
+}
+[data-style="terminal"] .btn--primary {
+  border: 2px solid var(--accent);
+}
+/* Inverse video for the selected card. */
+[data-style="terminal"] .card--selected {
+  border-color: var(--accent);
+}
+[data-style="terminal"] .btn:disabled {
+  border-color: var(--on-card-muted);
+}
+[data-style="terminal"] .card__value {
+  font-size: 1.25rem;
+}
+/* Decoration only: the alternative text after "/" keeps screen readers quiet. */
+[data-style="terminal"] .card__value::before {
+  content: "[" / "";
+}
+[data-style="terminal"] .card__value::after {
+  content: "]" / "";
+}
+[data-style="terminal"] .btn--primary::before {
+  content: "> " / "";
+}
+[data-style="terminal"] .page--narrow > .title::after {
+  content: "_" / "";
+}

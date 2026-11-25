@@ -80,3 +80,15 @@ leave, theme and language sit in the header menu, not in a footer. The menu clos
 
 The room page scrolls as a whole; there is no separate scroll area and nothing is pinned. There is clear space between
 the cards/actions and the estimate/participants. Cards stay in two rows of five on phones.
+
+### REQ-UI-011: Retro styles
+
+- **Priority:** could | **Phase:** 1 | **Status:** partial | **Verify:** test | **Source:** user (2026-11-25)
+
+Besides the modern look, the user can pick a retro style: **8-bit** (pixel fonts, square shapes, thick borders,
+hard block shadows) or **Terminal** (monospace, phosphor green on black / black on paper, inverse-video selection).
+The style is a setting next to the theme, independent of it: each style has a light and a dark variant and follows
+system / light / dark (REQ-UI-004). The choice is remembered. Retro styles keep REQ-UI-005 (contrast) and REQ-UI-007
+(no motion).
+
+Implemented with a test for switching and persistence; the look needs the user's visual check.

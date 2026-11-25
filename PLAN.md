@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-25 (Dependabot #34, #35)
+- **Last updated:** 2026-11-25 (retro styles)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -18,19 +18,19 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Process | Modelled on kith: this plan as handover, requirements as code (`scripts/reqs.py`, traceability matrix), ADRs 0001-0013, issue/PR templates, CODEOWNERS, Dependabot, CI. The agent merges its own PRs when CI is green. |
 | Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 30 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
 | Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
-| Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
+| Look | Style setting Modern / 8-bit / Terminal, each light and dark ([ADR 0015](docs/adr/0015-retro-styles.md), REQ-UI-011). Modern: flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
 | Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.3 as release tarball. Room = kith org, one JSON document per room, multi-use invite links (24 h, 20 devices), auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
 | Languages | German, English, Polish, Russian (in-house i18n, correct plurals, browser detection, remembered choice). |
 | Room layout | User picked option B (2026-11-09): one-line header + "⋯" menu (invite, your rooms, leave, theme, language; no footer), then user feedback: whole page scrolls, nothing pinned, same stacked order on desktop and phone (cards, actions, estimate, participants), menu items as buttons (language on its own row, closes on outside tap), invite link: copy on desktop ("Link copied" for 2 s), system share sheet on touch devices with `navigator.share`, "Show invite link" / automatic fallback field (REQ-ROOM-008; copy chain ClipboardItem promise, writeText, execCommand). REQ-UI-009/010 revised. Checked in Firefox only; **copy/share not verified in real Chrome or on a real iPhone/Android** (no Chromium on the dev machine; cause of the earlier Chrome failure unknown, plain-http origins have no `navigator.clipboard`, now covered by the execCommand fallback). |
 | Rooms | Optional room name (in the room document), list of joined rooms on the landing page (from localStorage sessions), "Your rooms" and "Leave room" (confirm, removes own player entry, frees client, deletes session/device key/IndexedDB) in the room footer. |
-| Requirements | 33 in `docs/requirements/`: 19 implemented, 6 partial, 8 accepted (see below). ROOM-005..007 are new, from the user's request of 2026-11-09. |
+| Requirements | 34 in `docs/requirements/`: 19 implemented, 7 partial, 8 accepted (see below). ROOM-005..007 are new, from the user's request of 2026-11-09. |
 
 ### Requirement status (all accepted by the user; none are `proposed`)
 
 - **Implemented (19):** ROOM-001, ROOM-005..008, VOTE-001..005, UI-002, 003, 007..010, LANG-001, 002, PLAT-004.
-- **Partial (6):**
+- **Partial (7):**
   - ROOM-002 (join by link) and ROOM-003 (participant list): UI done, other participants only exist with kith.
-  - UI-001 (look), UI-004 (themes), UI-006 (phone first): need the user's visual check. The agent checked Firefox at 390 px and 1100 px, light and dark, de and pl, not 360 px and not Chrome/Safari.
+  - UI-001 (look), UI-004 (themes), UI-006 (phone first), UI-011 (retro styles): need the user's visual check. The agent checked Firefox at 390 px and 1100 px, light and dark, de and pl, not 360 px and not Chrome/Safari.
   - UI-005 (accessible): contrast was calculated by hand for the palette; there is no automated check yet.
 - **Accepted, not started (8):** SYNC-001..004, ROOM-004 (rejoin keeps identity): all need kith. PLAT-001..003 are decisions/manual checks (PLAT-002 happens with the kith integration, PLAT-003 needs a browser pass).
 
@@ -43,7 +43,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
 ### Next steps (in order)
 
-1. **User reviews the look** (`pnpm dev`) and the German/Polish/Russian texts (written by the agent, need a native check). Fix what they find.
+1. **User reviews the look** (`pnpm dev`; now incl. the retro styles 8-bit and Terminal in light and dark, menu "Style") and the German/Polish/Russian texts (written by the agent, need a native check). Fix what they find.
 2. **Test and harden the kith integration:**
    1. Automated two-client test (real wasm + local relay, e.g. Playwright in CI) for REQ-SYNC-001/004, ROOM-002..004; then set those requirements to `implemented`.
    2. Connection state in the UI (offline / reconnecting), host-offline message when joining times out, "room opened in another tab" message (kith allows one client per database).
@@ -85,6 +85,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Reset is a constant, always enabled secondary button; disabled controls are flat (no opacity, cards unchanged after reveal) | User | REQ-UI-002 |
 | i18n de/en/pl/ru without a library | Small app; `Intl.PluralRules` | [ADR 0013](docs/adr/0013-own-minimal-i18n.md) |
 | Web app hosted on Azure Static Web Apps, deployed from `main` by GitHub Actions | User | `.github/workflows/deploy-azure.yml` |
+| Retro theme: a separate *Style* setting with **both** 8-bit and Terminal, each in light and dark, independent of system/light/dark | User (2026-11-25) | [ADR 0015](docs/adr/0015-retro-styles.md), REQ-UI-011 |
 | Favicon: white Fibonacci spiral with a plum dot on navy | Agent design, user asked for "very nice" | `public/favicon.svg` |
 
 | kith 0.2.0-beta.3 pinned; room = org, one JSON document, multi-use invites (24 h, 20 uses: agent choice, change `INVITE_*` in `kithRoom.ts`), UI-only hidden votes | Agent proposal while integrating (user asked to "try to implement kith with this release"); open questions above | [ADR 0014](docs/adr/0014-room-document-and-invites.md) |
@@ -131,3 +132,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-10**: Fixed dev-server wasm load (`optimizeDeps.exclude` kith-wasm); wasm now served as `application/wasm`.
 - **2026-11-10**: Russian added as a language (REQ-LANG-001/002, ADR 0013 updated); texts need a native check.
 - **2026-11-25**: Dependabot merged: npm-minor group (biome 2.6.7, vite 8.3.8, vitest 5.1.0, plugin-react 6.3.0, user-event 14.6.10; #35) and jsdom 31.0.1 (#34, test env only, no canvas use).
+- **2026-11-25**: Retro styles: Style setting Modern / 8-bit / Terminal in light and dark (REQ-UI-011, ADR 0015); stored look applied at startup (fixes the theme not being applied on a reloaded room page); settings row wraps. Checked in Firefox at 390 px, en only; needs the user's visual check.
