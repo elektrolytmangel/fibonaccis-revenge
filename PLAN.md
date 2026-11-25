@@ -4,7 +4,7 @@ The single place to see where fibonaccis-revenge stands, what was decided, and
 what comes next. **Read this first when you pick up work. Update it whenever you
 make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 
-- **Last updated:** 2026-11-10 (Russian)
+- **Last updated:** 2026-11-25 (Dependabot #34, #35)
 - **Version:** none yet (no tag, nothing deployed)
 - **State of `main`:** CI green (requirements + web), no open PRs, no open Dependabot PRs.
 - **Repository:** <https://github.com/elektrolytmangel/fibonaccis-revenge>
@@ -16,7 +16,7 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 | Area | State |
 | --- | --- |
 | Process | Modelled on kith: this plan as handover, requirements as code (`scripts/reqs.py`, traceability matrix), ADRs 0001-0013, issue/PR templates, CODEOWNERS, Dependabot, CI. The agent merges its own PRs when CI is green. |
-| Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 18 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
+| Tooling | Vite + React + TypeScript 7, pnpm 12, Biome (lint + format), Vitest + Testing Library. 30 tests. CI: `requirements` and `web` (install, lint, typecheck, test, build). |
 | Local app | Landing (name, create/join room), room with: title + invite link, 10 cards (0, 1, 2, 3, 5, 8, 13, 21, 42, ?), Reveal and Reset, one **estimate row** (smallest Fibonacci number ≥ the average of the numeric votes; empty until reveal), scrollable participant list. Votes hidden until reveal; fits the screen. |
 | Look | Flat, Headspace-oriented, no micro-movements. Palette: Oxford navy (primary), Sky Surge (avatars only), plum (revealed chips, avatars), white, onyx. Light and dark theme (system/light/dark toggle). Own SVG favicon (white Fibonacci spiral, plum dot, navy). |
 | Sync (kith) | `@elektrolytmangel/kith-wasm` 0.2.0-beta.3 as release tarball. Room = kith org, one JSON document per room, multi-use invite links (24 h, 20 devices), auto-admission by the host, rejoin after reload ([ADR 0014](docs/adr/0014-room-document-and-invites.md)). Code in `src/sync/`; `App` takes a `Backend` (`kithBackend` in `main.tsx`, `localBackend` in tests). |
@@ -130,3 +130,4 @@ make a plan or finish a piece of work** (see [CLAUDE.md](CLAUDE.md)).
 - **2026-11-09**: kith bumped to 0.2.0-beta.3; join link is a multi-use invite (`createMultiInvite`, 24 h, 20 devices). Not yet checked by hand with 3+ clients against the beta.3 relay.
 - **2026-11-10**: Fixed dev-server wasm load (`optimizeDeps.exclude` kith-wasm); wasm now served as `application/wasm`.
 - **2026-11-10**: Russian added as a language (REQ-LANG-001/002, ADR 0013 updated); texts need a native check.
+- **2026-11-25**: Dependabot merged: npm-minor group (biome 2.6.7, vite 8.3.8, vitest 5.1.0, plugin-react 6.3.0, user-event 14.6.10; #35) and jsdom 31.0.1 (#34, test env only, no canvas use).
