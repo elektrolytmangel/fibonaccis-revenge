@@ -22,6 +22,22 @@ describe("app", () => {
     expect(screen.getByRole("heading", { name: /fibonacci/i })).toBeInTheDocument();
   });
 
+  // req: REQ-UI-011
+  it("switches the style independently of the theme and remembers it", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const html = document.documentElement;
+    await user.click(screen.getByRole("button", { name: /^style: modern$/i }));
+    expect(html).toHaveAttribute("data-style", "pixel");
+    await user.click(screen.getByRole("button", { name: /^style: 8-bit$/i }));
+    expect(html).toHaveAttribute("data-style", "terminal");
+    expect(localStorage.getItem("fr.style")).toBe("terminal");
+    await user.click(screen.getByRole("button", { name: /^theme:/i }));
+    expect(html).toHaveAttribute("data-style", "terminal");
+    await user.click(screen.getByRole("button", { name: /^style: terminal$/i }));
+    expect(html).not.toHaveAttribute("data-style");
+  });
+
   // req: REQ-ROOM-001
   it("creates a room and shows the creator as first participant", async () => {
     await startRoom();

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Retro styles: new *Style* setting (Modern / 8-bit / Terminal), each in light and dark (REQ-UI-011, ADR 0015). Stored look is applied at startup.
 - Russian added as a language (with plural forms).
 - Fix: dev server served index.html instead of the kith wasm file (pre-bundling); excluded from `optimizeDeps`.
 - Repository structure.
